@@ -15,6 +15,7 @@ from django.http import HttpResponse
 from urllib.parse import unquote
 import json
 from ipware.ip import get_ip
+import uuid
 from django.utils import timezone
 import pytz
 tz=pytz.timezone('Asia/Seoul')
@@ -56,23 +57,28 @@ def who(request):
 
 def sharefood(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = FoodForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(username=form.cleaned_data['username'],
-                                                password=form.cleaned_data['password1'],
-                                                email=form.cleaned_data['email'],
-                                                first_name=str(form.cleaned_data['rname'])+'|'+str(form.cleaned_data['phone']) + '|' + str(
-                                                    form.cleaned_data['address']),
-                                                last_name=form.cleaned_data['memtype'])
-
-            login(request, user)
-            return HttpResponseRedirect('/')
+            print("form is valid")
+            apikey = request.POST['apikey']
+            filearr = []
+            for key, value in request.FILES.items():
+                if (str(value.name).endswith('.jpg') or str(value.name).endswith('.png') or str(value.name).endswith('.JPG') or str(value.name).endswith('.PNG')):
+                    newfile = CsFile.objects.create(apikey=apikey,usr=request.user,file=value,regdate=datetime.datetime.now(tz))
+            return HttpResponse('o')
         else:
-            context={'form': form}
-            return render(request, 'registration/register.html',context)
-    form = RegistrationForm()
-    context={'form': form}
-    return render(request, 'registration/register.html',context)
+            print(form.errors)
+            # return HttpResponseRedirect(reverse('recl'))
+            # return HttpResponseRedirect("www.daum.net")
+            return HttpResponse('x')
+    else:
+        if request.user.is_authenticated:
+            form = FoodForm()
+            apikey = str(uuid.uuid4().hex)
+            context = {'form': form, 'genkey': apikey}
+            return render(request, 'sharefood.html', context)
+        else:
+            return HttpResponseRedirect('../login')
 
 
 def latest(request):
@@ -90,3 +96,4 @@ def sale(request):
 def deli(request):
     context = {}
     return render(request, 'deli.html', context)
+

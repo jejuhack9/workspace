@@ -1,0 +1,131 @@
+{%extends "base.html" %}
+{%block title %}LeftOver Sharing{% endblock %}
+{% block head %}
+    {% load static %}
+    <link href="{% static "upload/css/dropzone.css" %}" type="text/css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+{% endblock %}
+
+{%block content %}
+    <div class="container">
+    <form id="newUserForm" name="newUserForm" method="post" action="appreg" enctype="multipart/form-data">
+        {% csrf_token %}
+         {% if form.errors %}
+                <div class="alert alert-dismissible alert-danger">
+                    <ul>
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        <div class="container">
+            <row>
+                <div class="col-sm-6"><h3>Food Name</h3><input id="fname" name="{{ form.fname.name }}" type="text" placeholder="영문소문자/숫자, 30자 이하" class="form-control input-md" required></div>
+                <div class="col-sm-6"><h3>Sharing/Selling</h3><li><label for="id_sharetype_0"><input type="radio" name="sharetype" value="free" id="id_sharetype_0" required/> Free food</label></li>
+                <li><label for="id_sharetype_1"><input type="radio" name="sharetype" value="discount sale" id="id_sharetype_1" required/> Discount sale</label></li>
+                </div>
+            </row>
+            <row>
+                <div class="col-sm-6"><h3>Discounted Price</h3><input id="price" name="{{ form.price.name }}" type="text" value="0" placeholder="input only numbers" class="form-control input-md" readonly></div>
+                <div class="col-sm-6"><h3>Discount Rate(%)</h3><input id="percent" name="{{ form.percent.name }}" type="text" value="0" placeholder="input only numbers" class="form-control input-md" readonly></div>
+            </row>
+            <row>
+                <div class="col-sm-12"><h3>Food Info</h3><textarea name="{{ form.fcontent.name }}" form="newUserForm" class="form-control input-md" cols="40" rows="10" placeholder="Please describe why you made:&#13;&#10;&#13;&#10;What's inside the food:&#13;&#10;&#13;&#10;Whom do you like it to be shared with: &#13;&#10;&#13;&#10;For your Future Customer:" required></textarea></div>
+            </row>
+            <row>
+                <div class="col-sm-6"><h3>Food Created Time</h3><input id="stime" name="{{ form.stime.name }}" type="text"  placeholder="13:31" class="form-control input-md"></div>
+                <div class="col-sm-6"><h3>Available Until</h3><input id="etime" name="{{ form.etime.name }}" type="text" placeholder="15:41" class="form-control input-md"></div>
+            </row>
+
+        </div>
+        <br>
+        <!-- The div for uploading the images -->
+        <div id="dropzone" class="dropzone"></div>
+        <br>
+        <div align="center">
+            <button class="btn btn-danger btn-large" onclick="window.location.reload()">Clear</button>
+            <button class="btn btn-primary btn-large" id="save">① Check Food Safety</button>
+            <button id="submit" name="submit" class="btn btn-success btn-large" disabled>② Share Your Food</button>
+        <!--button class="btn btn-success btn-large" id="appreg" onclick="location.href= 'appreg' ">② MONONITY APP 등록</button-->
+        </div>
+        <br>
+        <!--button id='save'> MONONITY APP 등록 </button-->
+    </form>
+    </div>
+            <script src="{% static "/upload/js/dropzone.js" %}"></script>
+            <script type="text/javascript">
+            function offline() {
+                $("#submit").removeAttr("disabled");
+            }
+                    $(document).ready(function(){
+              var list_of_files = new Array();
+              Dropzone.autoDiscover = false;  //prevent dropzone to automatically discover the dropzone object in your html
+              $("div#dropzone").dropzone({
+                    uploadMultiple: true, // allow multiple upload
+                    autoProcessQueue: false, // prevent dropzone from uploading automatically
+                    url: "/", //dropzone needs a url attribute or it complains, what value you put here does not really matter. It is only purpose is to prevent a javascript error message from chrome console
+                    //maxFiles: 5, //set max uploads to 5 since you only have 5 image files in your model
+                    init: function(){
+                        //everytime a file is uploaded, save the file object
+                        //for later use
+                        this.on("addedfile", function(file)
+                        {
+                            //if (list_of_files.length < 5)
+                            {
+                                list_of_files.push(file)
+                                //console.log("file added");
+                            }
+                        });
+                    }
+                });
+
+              // the following function override the "submit" button in the form
+              $(document).on("click", "#save", function(e){
+                    e.preventDefault() //prevent the form from submitting
+                    console.log('num of files: ' + list_of_files.length);
+                    console.log('files lists: ' + list_of_files);
+                    var formData = new FormData(); // construct our own upload data
+                    var inputs = $("#newUserForm input");
+                    //get all of the data from textboxes
+                    $.each(inputs, function(obj, v){
+                        var name = $(v).attr("name")
+                        var val = $(v).val();
+                        console.log('name: ' + name + ' value: ' + val);
+                        formData.append(name, val);
+                    });
+                    //get the file object from dropzone and put it into our formdata
+                    for(i=0;i<list_of_files.length;i++)
+                    {
+                        formData.append('upload'+(i+1), list_of_files[i]);
+                    }
+                    var request = new XMLHttpRequest();
+                    request.open("POST", ""); //config your post url here
+                    //request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    /*
+                    request.onload = function () {
+                        // do something to response
+                        console.log(request.responseText);
+                    };
+                    */
+                    request.onreadystatechange = function() {//Call a function when the state changes.
+                        if(request.readyState == 4 && request.status == 200) {
+                            if(request.responseText=='x')
+                            {
+                                alert("앱 이름 영문 or 영문+숫자 조합으로 4글자 이상 입력하셔야합니다");
+                            }
+                            else
+                            {
+                                redir=("http://"+String(window.location.hostname)+":"+String(window.location.port));
+                                window.location=redir+"/media/zipped/"+request.responseText;
+                                setTimeout(function() {$.get(redir+'/dlzip/'+request.responseText); console.log('deleted!');}, 10000);  //  3초 후 함수가 실행됨
+                                $("#submit").removeAttr("disabled");
+                            }
+                        }
+                    };
+                    request.send(formData);  //send the post request to server
+                });
+            });
+            </script>
+
+{% endblock %}
