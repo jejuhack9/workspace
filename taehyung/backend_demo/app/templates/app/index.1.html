@@ -1,9 +1,4 @@
-
-
 {% load staticfiles %}
-
-{% load thumbnail %}
-<a href="{% url 'app:corporation_new' %}" >로그인하면 사진등록 리다이렉션</a>
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +8,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <!-- Optional theme -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static style.css %}">
   </head>
   <body>
     <div class="container">
@@ -26,15 +21,7 @@
               <article class="row">
                 <div class="col-md-2 col-sm-2 hidden-xs">
                   <figure class="thumbnail">
-                    {% for corporation in corporation_list %}
-                        {% if corporation.usr == reply.usr %}
-                            {% if corporation.corp_logo %}
-                                <img class="img-responsive" src="{{corporation.corp_logo.url}}" />
-                            {% else %}
-                                <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
+                    <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
                     <figcaption class="text-center">{{reply.usr}}</figcaption>
                   </figure>
                 </div>
@@ -53,31 +40,26 @@
                       <hr>
                       <div class="row">
                         <div class="col-md-5 col-sm-6 star-post" align="center">
-                        <span style="font-size:20px">User Grading</span>
+                        user grading
                         <br>
                         <p>
 
                             {{ reply.star }}
-                            <i class="fa fa-star" aria-hidden="true"></i>
                         </p>
                         </div>
                         <div class="col-md-7 col-sm-7 image-post">
                         <div class="col-md-6 col-sm-6 before-image-post" align="center">
-                        <span style="font-size:20px">Before Eat</span>
+                        before eat
                         <br>
                         <p>
-                            {% thumbnail reply.before_picture "150x150" crop="center" as thumb %}
-                                <img src="{{ thumb.url }}">
-                            {% endthumbnail %}
+                          <img style="width:64;height:64" src="{{reply.before_picture.url}}" alt="">
                         </p>
                         </div>
                         <div class="col-md-6 col-sm-6 after-image-post" align="center">
-                        <span style="font-size:20px">After Eat</span>
+                        after eat
                         <br>
                         <p>
-                            {% thumbnail reply.after_picture "150x150" crop="center" as thumb %}
-                                <img src="{{ thumb.url }}">
-                            {% endthumbnail %}
+                          <img src="{{reply.after_picture.url}}" alt="">
                         </p>
                         </div>
                       </div>
@@ -93,7 +75,7 @@
       <div class="row">
         <div class="col-md-offset-8 col-md-3 col-sm-offset-8 col-sm-3">
           <div class = "button_wrap" align="center">
-            <a href="{% url 'app:reply_new' %}" class="button"> Add Comments</a>
+            <a href="./index.php" class="button"> Add Comments</a>
           </div>
         </div>
       </div>

@@ -42,3 +42,27 @@
 <hr>
 
 <a href="{% url 'app:reply_new' %}" >댓글달기</a>
+
+
+
+{% load staticfiles %}
+
+<h2>Reply</h2>
+<div>
+    {% for reply in reply_list %}
+        <p>{{reply.usr}}</p>
+        <p>{{reply.message}}</p>
+        <p>{{reply.star}}</p>
+        <p>{{reply.created_at}}</p>
+        
+        {% for reply in reply_list %}
+        <p>{{reply.before_picture}}</p>
+        <img src="{{reply.before_picture.url}}" alt="">
+        <img src="{{reply.after_picture.url}}" alt="">
+    
+    {% endfor %}
+
+        <hr>
+    {% endfor %}
+</div>
+<hr>

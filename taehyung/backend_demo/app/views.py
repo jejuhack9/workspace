@@ -10,10 +10,12 @@ from django.contrib.auth.decorators import login_required
 def post_list(request):
     qs = Foods.objects.all()
     qs_reply = Reply.objects.all()
+    qs_corporation = Corporation.objects.all()
 
     context={
         "foods_list" : qs,
-        "reply_list" : qs_reply
+        "reply_list" : qs_reply,
+        "corporation_list" : qs_corporation,
     }
     return render(request,"app/index.html",context)
 

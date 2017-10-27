@@ -1,0 +1,112 @@
+ /*font Awesome http://fontawesome.io*/
+ @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+ /*Comment List styles*/
+ .comment-list .row {
+   margin-bottom: 0px;
+ }
+ .comment-list .panel .panel-heading {
+   padding: 4px 15px;
+   position: absolute;
+   border:none;
+   /*Panel-heading border radius*/
+   border-top-right-radius:0px;
+   top: 1px;
+ }
+ .comment-list .panel .panel-heading.right {
+   border-right-width: 0px;
+   /*Panel-heading border radius*/
+   border-top-left-radius:0px;
+   right: 16px;
+ }
+ .comment-list .panel .panel-heading .panel-body {
+   padding-top: 6px;
+ }
+ .comment-list figcaption {
+   /*For wrapping text in thumbnail*/
+   word-wrap: break-word;
+ }
+ /* Portrait tablets and medium desktops */
+ @media (min-width: 768px) {
+   .comment-list .arrow:after, .comment-list .arrow:before {
+     content: "";
+     position: absolute;
+     width: 0;
+     height: 0;
+     border-style: solid;
+     border-color: transparent;
+   }
+   .comment-list .panel.arrow.left:after, .comment-list .panel.arrow.left:before {
+     border-left: 0;
+   }
+   /*****Left Arrow*****/
+   /*Outline effect style*/
+   .comment-list .panel.arrow.left:before {
+     left: 0px;
+     top: 30px;
+     /*Use boarder color of panel*/
+     border-right-color: inherit;
+     border-width: 16px;
+   }
+   /*Background color effect*/
+   .comment-list .panel.arrow.left:after {
+     left: 1px;
+     top: 31px;
+     /*Change for different outline color*/
+     border-right-color: #FFFFFF;
+     border-width: 15px;
+   }
+   /*****Right Arrow*****/
+   /*Outline effect style*/
+   .comment-list .panel.arrow.right:before {
+     right: -16px;
+     top: 30px;
+     /*Use boarder color of panel*/
+     border-left-color: inherit;
+     border-width: 16px;
+   }
+   /*Background color effect*/
+   .comment-list .panel.arrow.right:after {
+     right: -14px;
+     top: 31px;
+     /*Change for different outline color*/
+     border-left-color: #FFFFFF;
+     border-width: 15px;
+   }
+ }
+ .comment-list .comment-post {
+   margin-top: 15px;
+ }
+ .wrap {
+     position: absolute;
+     top: 20%;
+     left: 20%;
+     text-align: center;
+ }
+ a.button {
+   -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+   -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+   -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+   -o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+   transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+   display: block;
+   margin: 20px auto;
+   max-width: 180px;
+   text-decoration: none;
+   border-radius: 4px;
+   padding: 10px 10px;
+   color: rgba(30, 22, 54, 0.6);
+   box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+   font-size:13.5pt;
+ }
+ a.button:hover {
+     color: rgba(255, 255, 255, 0.85);
+     box-shadow: rgba(100, 90, 255, 0.7) 0 0px 0px 40px inset;
+ }
+ .before_image_post{
+   max-width:180px;
+   max-height:120px;
+ }
+ .after_image_post{
+   max-width:180px;
+   max-height:120px;
+ }
