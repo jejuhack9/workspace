@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Foods,Reply
+from .models import Foods,Reply,Corporation
 from django.views.generic import CreateView
-from .forms import ReplyForm
+from .forms import ReplyForm, CorporationForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -17,9 +17,6 @@ def post_list(request):
     }
     return render(request,"app/index.html",context)
 
-
-
-
 class ReplyCreateView(CreateView):
     model = Reply
     form_class = ReplyForm
@@ -31,5 +28,19 @@ class ReplyCreateView(CreateView):
         reply.save()
         return super(ReplyCreateView, self).form_valid(form)
 
-
 reply_new = login_required(ReplyCreateView.as_view(model=Reply,form_class=ReplyForm,template_name = 'app/add_reply.html'))
+
+
+class CorporationCreateView(CreateView):
+    model = Corporation
+    form_class = CorporationForm
+    template_name = 'app/add_corporation.html'
+
+    def form_valid(self, form):
+        corporation = form.save(commit=False)
+        corporation.usr = self.request.user
+        corporation.save()
+        return super(CorporationCreateView, self).form_valid(form)
+
+corporation_new = login_required(CorporationCreateView.as_view(model=Corporation,form_class=CorporationForm,template_name = 'app/add_corporation.html'))
+

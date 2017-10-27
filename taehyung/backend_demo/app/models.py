@@ -40,6 +40,8 @@ class Reply(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(u'생성일시', auto_now=True)
     star = models.IntegerField(u'평점', default=0)
+    before_picture = models.FileField(upload_to='files/%Y%m%d/',default="No Picture")
+    after_picture = models.FileField(upload_to='files/%Y%m%d/',default="No Picture")
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
@@ -49,6 +51,14 @@ class Reply(models.Model):
     def __str__(self):
         return self.message
 
-    def __unicode__(self):
-        return 
+
+class Corporation(models.Model):
+    corp_logo = models.FileField(upload_to='files/%Y%m%d/')
+    usr = models.ForeignKey(settings.AUTH_USER_MODEL ,blank = True, null = True)
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('app:post_list')#, kwargs={'pk': self.pk})
+
+
 
