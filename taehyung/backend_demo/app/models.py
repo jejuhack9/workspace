@@ -2,6 +2,7 @@ from django.db import models
 import datetime
 from django.contrib.auth.models import User
 from django.conf import settings
+from sorl.thumbnail import ImageField
 
 
 class Searchedkey(models.Model):
@@ -40,8 +41,10 @@ class Reply(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(u'생성일시', auto_now=True)
     star = models.IntegerField(u'평점', default=0)
-    before_picture = models.FileField(upload_to='files/%Y%m%d/',default="No Picture")
-    after_picture = models.FileField(upload_to='files/%Y%m%d/',default="No Picture")
+    #before_picture = models.FileField(upload_to='files/%Y%m%d/',default="No Picture")
+    #after_picture = models.FileField(upload_to='files/%Y%m%d/',default="No Picture")
+    before_picture = ImageField(null=True,blank=True)
+    after_picture = ImageField(null=True,blank=True)
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
@@ -50,6 +53,23 @@ class Reply(models.Model):
     
     def __str__(self):
         return self.message
+
+    @property
+    def thumb_url(self):
+        thumb = get_thumbnail(self.photo, '100x100',crop='center', quality=70)
+        return thumb.url
+
+    def as_dict(self):
+        return {
+                'id':self.id,
+                'author':'anonymous',
+                'message':self.message,
+                'is_public':True,
+                'photos':[
+                    {'url':self.photo.url, 'thumb_url':self.thumb_url},
+                    ],
+                }
+
 
 
 class Corporation(models.Model):

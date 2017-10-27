@@ -1,0 +1,44 @@
+
+{% load thumbnail %}
+
+<a href="{% url 'app:corporation_new' %}" >로그인하면 사진등록 리다이렉션</a>
+
+
+
+
+<h2>Post</h2>
+<hr>
+<div>
+    {% for post in foods_list %}
+        <p>{{ post.id }}</p>
+        <p>{{ post.usr }}</p>
+        <p>{{ post.time }}</p>
+        <p>{{ post.where }}</p>
+        <hr>
+    {% endfor %}
+
+</div>
+
+<hr>
+
+<h2>Reply</h2>
+<div>
+    {% for reply in reply_list %}
+        <p>{{reply.usr}}</p>
+        <p>{{reply.message}}</p>
+        <p>{{reply.star}}</p>
+        <p>{{reply.created_at}}</p>
+
+        <p>{{reply.before_picture}}</p>
+        
+
+        {% thumbnail app.before_picture "100x100" crop="center" as thumb %}
+            <img src="{{ thumb.url }}">
+        {% endthumbnail %}
+
+        <hr>
+    {% endfor %}
+</div>
+<hr>
+
+<a href="{% url 'app:reply_new' %}" >댓글달기</a>

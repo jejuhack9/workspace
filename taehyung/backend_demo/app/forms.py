@@ -7,7 +7,7 @@ class ReplyForm(forms.ModelForm):
 
      class Meta:
         model = Reply
-        fields = ['message']
+        fields = ['message','before_picture']
         labels ={
         'message':('내용'),
         }
