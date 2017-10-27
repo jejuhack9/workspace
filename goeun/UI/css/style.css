@@ -319,7 +319,7 @@ a:hover{
 }
 
 .sinle_features{
-	margin:50px 0px;
+	margin:10px 0px;
 }
 
 .sinle_features img{
@@ -552,4 +552,8 @@ a:hover{
 	margin-left: -6px;
 	text-decoration: none;
 
+}
+
+#2ofHorizontal{
+    
 }
