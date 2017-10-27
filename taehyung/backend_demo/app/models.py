@@ -47,7 +47,7 @@ class Reply(models.Model):
 
     
     def __str__(self):
-        return self.text
+        return self.message
 
     def __unicode__(self):
         return 

@@ -1,14 +1,15 @@
-<h1>Hello World</h1>
 
-<hr>
 <h2>Post</h2>
-
+<hr>
 <div>
     {% for post in foods_list %}
+        <p>{{ post.id }}</p>
         <p>{{ post.usr }}</p>
         <p>{{ post.time }}</p>
         <p>{{ post.where }}</p>
+        <hr>
     {% endfor %}
+
 </div>
 
 <hr>
@@ -16,10 +17,15 @@
 <h2>Reply</h2>
 <div>
     {% for reply in reply_list %}
+        <p>{{reply.id}}</p>
         <p>{{reply.usr}}</p>
         <p>{{reply.message}}</p>
         <p>{{reply.created_at}}</p>
+        <hr>
     {% endfor %}
+
 
 </div>
 <hr>
+
+<a href="{% url 'app:reply_new' %}" >댓글달기</a>
