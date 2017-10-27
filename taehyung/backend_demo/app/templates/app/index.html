@@ -1,0 +1,25 @@
+<h1>Hello World</h1>
+
+<hr>
+<h2>Post</h2>
+
+<div>
+    {% for post in foods_list %}
+        <p>{{ post.usr }}</p>
+        <p>{{ post.time }}</p>
+        <p>{{ post.where }}</p>
+    {% endfor %}
+</div>
+
+<hr>
+
+<h2>Reply</h2>
+<div>
+    {% for reply in reply_list %}
+        <p>{{reply.usr}}</p>
+        <p>{{reply.message}}</p>
+        <p>{{reply.created_at}}</p>
+    {% endfor %}
+
+</div>
+<hr>
