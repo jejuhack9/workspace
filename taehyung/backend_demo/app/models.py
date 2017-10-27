@@ -55,8 +55,12 @@ class Reply(models.Model):
 
 
 class Corporation(models.Model):
-    corp_logo = models.FileField(upload_to='files/%Y%m%d/')
     usr = models.ForeignKey(settings.AUTH_USER_MODEL ,blank = True, null = True)
+    corp_logo = models.FileField(upload_to='files/%Y%m%d/')
+    corp_name = models.CharField(max_length=30, default='null')
+    corp_descriptioin = models.TextField(default='null')
+    
+    
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
