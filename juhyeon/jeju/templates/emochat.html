@@ -1,0 +1,97 @@
+{%extends "base.html" %}
+{%block title %}종설1등팀에 오신것을 환영합니다{% endblock %}
+{%block head %}
+<style>
+#queryText {
+  position : relative;
+  bottom : 4%;
+  padding : 0.5%;
+  min-width : 200px;
+}
+
+#queryText form div input {
+  min-width : 90%;
+}
+
+#queryText *{
+  border : 0px solid black;
+}
+
+#chat-item *{
+  border : 0px solid red;
+}
+
+#msgItems div img {
+  background : blue;
+  display : inline;
+}
+.alert {display:inline-block;}
+</style>
+{% endblock %}
+{%block content %}
+  <div class="container-fluid">
+        <!--msgbox-->
+		<div class="col-xs-7">
+          <div id="msgItems" class="container-fluid">
+              <div id="chat-item" class="row">
+                  <div class="cols-xs-4">
+                    <div class="alert alert-info">
+      					<p><img src="http://placehold.it/30X30" class="img-circle img-responsive"><span class="glyphicon icon-info"></span> My text.</p>
+                    </div>
+                  </div>
+              </div>
+              <div id="chat-item" class="row text-right">
+                  <div class="cols-xs-4">
+                    <div class="alert alert-info">
+      					<p><img src="http://placehold.it/30X30" class="img-circle img-responsive"><span class="glyphicon icon-info"></span> Yo text.</p>
+                    </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- querybox-->
+          <div id="queryText" class="row">
+              <form class="form-width" id="chatForm" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                  <div class="col-xs-11">
+                      <input type="text" id="query" class="form-control" placeholder="인공지능에게 무엇이든 물어보세요" name="query">
+                  </div>
+                  <div class="col-xs-1">
+                      <button type="submit" id="send" class="btn pull-right btn-large btn-primary">보내기<!--i class="glyphicon glyphicon-ok"></i--></button>
+                  </div>
+              </form>
+          </div>
+      </div>
+    </div>
+    <script>
+    $(document).ready(function(){
+
+        $(document).on("click", "#send", function(e){
+            e.preventDefault() //prevent the form from submitting
+            var formData = new FormData(); // construct our own upload data
+            var inputs = $("#chatForm input");
+            $.each(inputs, function(obj, v){
+                        var name = $(v).attr("name")
+                        var val = $(v).val();
+                        console.log('name: ' + name + ' value: ' + val);
+                        formData.append(name, val);
+                    });
+            var request = new XMLHttpRequest();
+                    request.open("POST", "");
+                    request.onreadystatechange = function() {//Call a function when the state changes.
+                        if(request.readyState == 4 && request.status == 200) {
+                            if(request.responseText=='x')
+                            {
+                                alert("앱 이름 영문 or 영문+숫자 조합으로 4글자 이상 입력하셔야합니다");
+                            }
+                            else
+                            {
+                                alert("You sent right");
+                            }
+                        }
+                    };
+            request.send(formData);  //send the post request to server
+            });
+    });
+    </script>
+{% endblock %}

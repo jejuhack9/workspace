@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Save the food Register{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+<legend align="center">Register for Free Food Share<br>And Save Your Earth Now!</legend>
+
+<form method="post" action="." class="form-horizontal">
+{% if form.errors %}
+    <p>Register Error {{ form.errors }}  Please rewrite the form</p>
+
+{% endif %}
+
+
+<!--fieldset-->
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="memtype"></label>
+  <div class="col-md-4">
+  <input type="radio" name="memtype" value="in" required id="id_memtype_0" />
+    Food donor</label>
+
+  <input type="radio" name="memtype" value="out" required id="id_memtype_1" />
+    Food recipient</label>
+
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="id_username" name="username">ID</label>
+  <div class="col-md-4">
+  <input id="fn" name="{{ form.username.name }}" type="text" placeholder="(영문소문자/숫자, 4~16자)" class="form-control input-md" required="">
+
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="id_password1">Password</label>
+  <div class="col-md-4">
+  <input id="id_password1" name="{{ form.password1.name }}" type="password" placeholder="(영문 대소문자/숫자 8자~30자)" class="form-control input-md" required="">
+
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="id_password2">Retype Password</label>
+  <div class="col-md-4">
+  <input id="id_password2" name="{{ form.password2.name }}" type="password" placeholder="비밀번호확인" class="form-control input-md" required="">
+
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="email">Email</label>
+  <div class="col-md-4">
+  <input id="email" name="{{ form.email.name }}" type="text" placeholder="email" class="form-control input-md" required="">
+
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="id_rname">Name</label>
+  <div class="col-md-4">
+  <input id="id_rname" name="{{ form.rname.name }}" type="text" placeholder="2~4자 실명" class="form-control input-md" required="">
+
+  </div>
+</div>
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="id_phone">Phone Number</label>
+  <div class="col-md-4">
+  <input id="id_phone" name="{{ form.phone.name }}" type="text" placeholder="휴대폰 번호만 입력 하세요. 예)010-xxxx-xxxx" class="form-control input-md" required="">
+
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="id_content">Address</label>
+  <div class="col-md-4">
+  <input id="id_content" name="{{ form.address.name }}" type="text" placeholder="Specify your address please" class="form-control input-md" required="">
+
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="submit"></label>
+  <div class="col-md-4">
+    <button id="submit" name="submit" class="btn btn-primary">Register</button>
+  </div>
+</div>
+{% csrf_token %}
+<!--/fieldset-->
+</form>
+{% endblock %}
