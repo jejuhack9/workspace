@@ -1,0 +1,71 @@
+
+<a href="{% url 'app:corporation_new' %}" >로그인하면 사진등록 리다이렉션</a>
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    {% load staticfiles %}
+    {% load thumbnail %}
+
+    <meta charset="utf-8">
+    <title>reply test page</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+
+  </head>
+
+
+
+  <body>
+      <div class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <a href="../" class="navbar-brand">Bootswatch</a>
+              <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+              <ul class="nav navbar-nav">
+ 
+                <li>
+                  <a href="{% url 'app:post_list' %}">올린 순</a>
+                </li>
+                <li>
+                  <a href="{% url 'app:post_list_ordered_star' %}">평점 순</a>
+                </li>             
+                
+              </ul>
+    
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
+                <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+              </ul>
+    
+            </div>
+          </div>
+        </div>
+<!--navvar end-->
+
+{% block content %}
+{% endblock %}
+
+
+  <!-- 푸터 들어가는 부분 -->
+
+  <div>
+        <p class="text-center">
+            <small> @Copyrighy by </small><br>
+            <small><strong> Global Hackaton Jeju</strong></small><br>
+        </p>
+    </div>
+  </body>
+</html>

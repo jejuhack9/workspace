@@ -1,4 +1,8 @@
+
 {% load staticfiles %}
+
+{% load thumbnail %}
+<a href="{% url 'app:corporation_new' %}" >로그인하면 사진등록 리다이렉션</a>
 
 <!DOCTYPE html>
 <html>
@@ -8,9 +12,84 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <!-- Optional theme -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="{% static style.css %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
   </head>
+
+
+
   <body>
+      <div class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <a href="../" class="navbar-brand">Bootswatch</a>
+              <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+              <ul class="nav navbar-nav">
+ 
+                <li>
+                  <a href="../help/">Help</a>
+                </li>
+                <li>
+                  <a href="http://news.bootswatch.com">Blog</a>
+                </li>
+
+                <li>
+                    <a href="../help/">Help</a>
+                  </li>
+                  <li>
+                    <a href="http://news.bootswatch.com">Blog</a>
+                  </li>               
+                
+              </ul>
+    
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
+                <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+              </ul>
+    
+            </div>
+          </div>
+        </div>
+<!--navvar end-->
+
+<!--POST start-->
+<div class="container">
+    <div class="row">
+      <div class="col-md-10 col-sm-10">
+        <h2 class="page-header">Post</h2>
+          <section class="comment-list">
+            <!-- First Comment -->
+
+
+            {% for post in foods_list %}
+              <p>{{post.id}}</p>
+              <p>{{post.fname}}</p>
+              <p>{{post.fcontent}}</p>
+              <p>{{post.price}}</p>
+              <p style= "font-size:40" >rating : {{post.star}}</p>
+
+              <hr>
+            {% endfor %}
+          </section>
+      </div>
+    </div>
+
+  </div>
+
+  <!--POST end-->
+
+
+
+
+
+    
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-sm-10">
@@ -21,7 +100,15 @@
               <article class="row">
                 <div class="col-md-2 col-sm-2 hidden-xs">
                   <figure class="thumbnail">
-                    <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                    {% for corporation in corporation_list %}
+                        {% if corporation.usr == reply.usr %}
+                            {% if corporation.corp_logo %}
+                                <img class="img-responsive" src="{{corporation.corp_logo.url}}" />
+                            {% else %}
+                                <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                     <figcaption class="text-center">{{reply.usr}}</figcaption>
                   </figure>
                 </div>
@@ -40,26 +127,31 @@
                       <hr>
                       <div class="row">
                         <div class="col-md-5 col-sm-6 star-post" align="center">
-                        user grading
+                        <span style="font-size:20px">User Grading</span>
                         <br>
                         <p>
 
                             {{ reply.star }}
+                            <i class="fa fa-star" aria-hidden="true"></i>
                         </p>
                         </div>
                         <div class="col-md-7 col-sm-7 image-post">
                         <div class="col-md-6 col-sm-6 before-image-post" align="center">
-                        before eat
+                        <span style="font-size:20px">Before Eat</span>
                         <br>
                         <p>
-                          <img style="width:64;height:64" src="{{reply.before_picture.url}}" alt="">
+                            {% thumbnail reply.before_picture "150x150" crop="center" as thumb %}
+                                <img src="{{ thumb.url }}">
+                            {% endthumbnail %}
                         </p>
                         </div>
                         <div class="col-md-6 col-sm-6 after-image-post" align="center">
-                        after eat
+                        <span style="font-size:20px">After Eat</span>
                         <br>
                         <p>
-                          <img src="{{reply.after_picture.url}}" alt="">
+                            {% thumbnail reply.after_picture "150x150" crop="center" as thumb %}
+                                <img src="{{ thumb.url }}">
+                            {% endthumbnail %}
                         </p>
                         </div>
                       </div>
@@ -75,7 +167,7 @@
       <div class="row">
         <div class="col-md-offset-8 col-md-3 col-sm-offset-8 col-sm-3">
           <div class = "button_wrap" align="center">
-            <a href="./index.php" class="button"> Add Comments</a>
+            <a href="{% url 'app:reply_new' %}" class="button"> Add Comments</a>
           </div>
         </div>
       </div>
