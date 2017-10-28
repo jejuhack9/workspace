@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Food Detail</title>
+	<!-- css -->
+	<link href="./css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src = "http://malsup.github.io/jquery.cycle2.js?ver=1"></script>
+	<!-- template skin -->
+	<link id="t-colors" href="color/default.css" rel="stylesheet">
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+
+	<style>
+	@font-face {
+	  font-family:"Hoon";
+	  src:url("./Hoon.ttf") format('truetype');
+	  font-style:normal;
+	  font-weight:normal;
+	}
+	@font-face {
+		font-family:"Gol1";
+		src:url("./gol1.ttf") format('truetype');
+		font-style:normal;
+		font-weight:normal;
+	}
+	@font-face {
+		font-family:"THEDdobak";
+		src:url("./THEDdobak.ttf") format('truetype');
+		font-style:normal;
+		font-weight:normal;
+	}
+	.contents_img {
+	  width:400px;
+		height:300px;
+	}
+	.cycle-slideshow{
+		position:relative;
+		margin-left:15%;
+		margin-bottom:3%;
+	}
+	h1{
+		text-align:left;
+		margin-left:22%;
+		font-family:Hoon, sans-serif;
+	}
+	h6{
+		margin-left:2%;
+		border:outset 1px grey;
+		max-width:150px;
+		text-align:center;
+		font-family:Hoon, sans-serif;
+		font-size: 14pt;
+	}
+	p{
+		font-family:THEDdobak, sans-serif;
+		font-size: 13pt;
+	}
+	</style>
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+<div class="row">
+<div class="col-sm-4 col-md-4 col-xs-4">
+<div id="wrapper">
+	<nav class="navbar navbar-custom" role="navigation">
+		<div class="container navigation">
+			<div class="navbar-header page-scroll">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-left navbar-main-collapse" style="margin-left:2%">
+				<ul class="nav navbar-nav">
+					<li><div id="cart"></div></li>
+					<li class="active"><a href="#intro">Home</a></li>
+					<li><a href="#">Food Detail</a> </li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+	<!-- /Section: intro -->
+	<div class="divider-short"></div>
+		<div class="container">
+			<div class="row text-center heading" style="margin-left:18%">
+				<h1><strong>Food features</strong></h1>
+			</div>
+			<div class="row">
+				<div class = "cycle-slideshow">
+					<img class="contents_img" src="./img/slide3.jpg">
+					<img class="contents_img" src="./img/slide2.jpg">
+					<img class="contents_img" src="./img/slide4.jpg">
+					<img class="contents_img" src="./img/slide2.jpg">
+				</div>
+				<div id = "wrap">
+					<div id = "content_1">
+						<h6><strong>Food Name</strong></h6>
+						<p>Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix, graecis eligendi ne.<br></p>
+						<hr>
+						<h6><strong>Discounted Price</strong></h6>
+						<p>
+							Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix, graecis eligendi ne.<br>
+						</p>
+						<hr>
+						<h6><strong>Discount Rate</strong></h6>
+						<p>
+							Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix, graecis eligendi ne.<br>
+						</p>
+						<hr>
+						<h6><strong>Sharing or Selling</strong></h6>
+						<p>
+							Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix, graecis eligendi ne.<br>
+						</p>
+					</div>
+					<div id = "content_2">
+						<hr>
+						<h6><strong>Food Info</strong></h6>
+						<p>
+							Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix, graecis eligendi ne.<br>
+						</p>
+						<hr>
+						<h6><strong>Food Created Time</strong></h6>
+						<p>
+							Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix, graecis eligendi ne.<br>
+						</p>
+						<hr>
+						<h6><strong>Available Until</strong></h6>
+						<p>
+							Lorem ipsum dolor sit amet, nec te mollis utroque honestatis, ut utamur molestiae vix, graecis eligendi ne.<br>
+						</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	<div class="divider-short"></div>
+	<footer>
+
+		<div class="sub-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-md-6 col-lg-6">
+						<div class="wow fadeInLeft" data-wow-delay="0.1s">
+							<div class="text-left" align="center">
+								<hr>
+								<p>&copy;Copyright 2014 - Appland. All rights reserved.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+</div>
+</div>
+<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+
+
+</body>
+
+</html>
