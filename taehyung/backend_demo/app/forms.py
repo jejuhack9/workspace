@@ -52,6 +52,11 @@ class FoodForm(forms.Form):
     etime = forms.CharField(label='종료시각', min_length=5, max_length=5, help_text=("15:41"))
 
 
+class FoodModelForm(forms.ModelForm):
+    class Meta:
+        model = Foods
+        fields = '__all__'
+
 class CorporationForm(forms.ModelForm):
     
     CHOICES=[('select1','select 1'),

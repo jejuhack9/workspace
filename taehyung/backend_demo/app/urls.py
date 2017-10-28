@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^reply/new/$', views.reply_new, name='reply_new'),
     url(r'^corporation/new/$', views.corporation_new, name='corporation_new'),
 
-    url(r'^post/(?P<id>\d+)/edit/$', views.post_edit, name='post_edit'),
+    url(r'^post/(?P<pk>\d+)/edit/$', views.post_edit, name='post_edit'),
 
  
 ]

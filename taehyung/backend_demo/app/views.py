@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Foods,Reply,Corporation
 from django.views.generic import CreateView, UpdateView, DeleteView
-from .forms import ReplyForm, CorporationForm, FoodForm
+from .forms import ReplyForm, CorporationForm, FoodModelForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -20,6 +20,7 @@ def post_list(request):
     }
     return render(request,"app/index.html",context)
 
+'''
 def post_edit(request, id=None):
     
     instance = get_object_or_404(Foods, id=id)
@@ -37,7 +38,7 @@ def post_edit(request, id=None):
         "form":form,
         }
     return render(request, "app/add_food.html",context)
-
+'''
 
 
 
@@ -80,7 +81,7 @@ def post_list_near_around(request):
 class FoodsCreateView(CreateView):
     model = Foods
     fields = 'all'
-    form_class = FoodForm
+    form_class = FoodModelForm
     template_name = 'app/add_food.html'
 
     def form_valid(self, form):
@@ -115,10 +116,10 @@ class CorporationCreateView(CreateView):
         return super(CorporationCreateView, self).form_valid(form)
 
 
-post_new = login_required(FoodsCreateView.as_view(model=Foods,form_class=FoodForm, template_name = 'app/add_food.html'))
+post_new = login_required(FoodsCreateView.as_view(model=Foods,form_class=FoodModelForm, template_name = 'app/add_food.html'))
 reply_new = login_required(ReplyCreateView.as_view(model=Reply,form_class=ReplyForm,template_name = 'app/add_reply.html'))
 corporation_new = login_required(CorporationCreateView.as_view(model=Corporation,form_class=CorporationForm,template_name = 'app/add_corporation.html'))
 
-#post_edit = login_required(UpdateView.as_view(model=Foods, template_name = 'app/add_food.html'))
+post_edit = login_required(UpdateView.as_view(model=Foods, form_class=FoodModelForm, template_name = 'app/add_food.html'))
 
 
