@@ -19,6 +19,11 @@ import uuid
 import jeju.matzip as matzip
 from django.utils import timezone
 import pytz
+from .forms import ReplyForm, CorporationForm
+from django.views.generic import CreateView
+from .forms import ReplyForm, CorporationForm
+from django.contrib.auth.decorators import login_required
+
 tz=pytz.timezone('Asia/Seoul')
 
 
@@ -44,13 +49,21 @@ def register(request):
                                                 last_name=form.cleaned_data['memtype'])
 
             login(request, user)
-            return HttpResponseRedirect('/')
+            if user.last_name is 'in':
+                return HttpResponseRedirect('../comreg')
+            else:
+                return HttpResponseRedirect('/')
         else:
             context={'form': form}
             return render(request, 'registration/register.html',context)
     form = RegistrationForm()
     context={'form': form}
     return render(request, 'registration/register.html',context)
+
+def comreg(request):
+    context = {}
+    return render(request, 'comreg.html', context)
+
 
 def who(request):
     context = {}
@@ -103,4 +116,36 @@ def jsonapi(request,keyword):
     js = json.dumps(rst, ensure_ascii=False)
     return HttpResponse(js, content_type=u"application/json; charset=utf-8", status=200)
 
+class CorporationCreateView(CreateView):
+    model = Corporation
+    form_class = CorporationForm
+    template_name = 'add_corporation.html'
 
+    def form_valid(self, form):
+        corporation = form.save(commit=False)
+        corporation.usr = self.request.user
+        corporation.save()
+        return super(CorporationCreateView, self).form_valid(form)
+
+corporation_new = login_required(CorporationCreateView.as_view(model=Corporation,form_class=CorporationForm,template_name = 'add_corporation.html'))
+
+def foodreg(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = FoodForm(request.POST)
+            if form.is_valid():
+                now=str(datetime.datetime.now(tz)).replace('-', '').replace(' ', '').replace(':', '').replace('.', '')[:-3]
+
+                st=datetime.datetime.now(tz)
+                et = datetime.datetime.now(tz)
+                st.replace(hour=int(form.cleaned_data['stime'].split(':')[0]),minute=int(form.cleaned_data['stime'].split(':')[1]))
+                et.replace(hour=int(form.cleaned_data['etime'].split(':')[0]),
+                           minute=int(form.cleaned_data['etime'].split(':')[1]))
+                food = Foods.objects.create(usr=request.user,fname=form.cleaned_data['fname'],fcontent=form.cleaned_data['fcontent'],price=form.cleaned_data['price'],percent=form.cleaned_data['percent'],\
+startdate=st,enddate=et,apikey=form.cleaned_data['apikey'])
+                return HttpResponseRedirect('../../latest')
+
+            else:
+                return HttpResponseRedirect('/')
+    else:
+        return HttpResponseRedirect('../login')

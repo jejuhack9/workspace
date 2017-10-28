@@ -54,7 +54,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrap_themes',
     'jeju',
-
+    'sorl.thumbnail',  # https://github.com/jazzband/sorl-thumbnail
 
 )
 
