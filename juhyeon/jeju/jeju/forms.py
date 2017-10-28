@@ -141,6 +141,8 @@ class FoodForm(forms.Form):
     percent=forms.IntegerField(label='할인율',required=False)
     sharetype = forms.ChoiceField(label='판매종류', choices=acctype, widget=forms.RadioSelect())
     fname = forms.CharField(label='음식 이름(ID)',min_length=2, max_length=30)
+    where = forms.CharField(label='주소', min_length=2, max_length=30)
+    tell = forms.CharField(label='전화번호', min_length=2, max_length=30)
     fcontent = forms.CharField(label='음식(정보)', min_length=2, max_length=1000)
     stime = forms.CharField(label='생성시각', min_length=5, max_length=5, help_text=("13:23"))
     etime = forms.CharField(label='종료시각', min_length=5, max_length=5, help_text=("15:41"))

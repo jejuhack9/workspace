@@ -37,6 +37,11 @@
                 <div class="col-sm-6"><h3>Food Created Time</h3><input id="stime" name="{{ form.stime.name }}" type="text"  placeholder="13:31" class="form-control input-md"></div>
                 <div class="col-sm-6"><h3>Available Until</h3><input id="etime" name="{{ form.etime.name }}" type="text" placeholder="15:41" class="form-control input-md"></div>
             </row>
+            <row>
+                <div class="col-sm-6"><h3>Address to get</h3><input id="where" name="{{ form.where.name }}" type="text"  placeholder="write your address please" class="form-control input-md"></div>
+                <div class="col-sm-6"><h3>Telephone</h3><input id="tell" name="{{ form.tell.name }}" type="text" placeholder="010-2842-9981" class="form-control input-md"></div>
+            </row>
+
 
         </div>
         <input id="apikey" name="{{ form.apikey.name }}" type="hidden" value="{{genkey}}">

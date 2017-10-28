@@ -104,22 +104,39 @@ def latest(request):
     last= Foods.objects.all().order_by('-enddate')
 
     arr = []
+    arr2= []
     for i,item in enumerate(last.values()):
-        #context = {'fname': item['fname'], 'rname': item['fcontent'], 'sdate': item['startdate'], 'edate': item['enddate']}
-        allcs = CsFile.objects.filter(apikey=item['apikey'])
-        picd=None
-        for pic in allcs.values():
-            if picd is None:
-                picd=pic['file']
-            else:
-                break
-        arr.append([item['fname'],item['fcontent'], str(item['startdate'])[:19],str(item['enddate'])[:19],picd])
-        #company = get_object_or_404(Corporation, pk=item['usr'])
-        #usrm=get_object_or_404(User, pk=item['usr'])
-        #info={}
-        #context={'fname':item['fname'],'rname':item['rname'],'sdate':item['startdate'],'edate':item['enddate'],'tel':item['usr']['first_name']}
-        #print(item)
-    context={'list':arr}
+        if i<len(last)/2:
+            #context = {'fname': item['fname'], 'rname': item['fcontent'], 'sdate': item['startdate'], 'edate': item['enddate']}
+            allcs = CsFile.objects.filter(apikey=item['apikey'])
+            picd=None
+            for pic in allcs.values():
+                if picd is None:
+                    picd=pic['file']
+                else:
+                    break
+            arr.append([item['fname'],item['tell'],str(item['startdate'])[:19],str(item['enddate'])[:19],item['where'],picd])
+            #company = get_object_or_404(Corporation, pk=item['usr'])
+            #usrm=get_object_or_404(User, pk=item['usr'])
+            #info={}
+            #context={'fname':item['fname'],'rname':item['rname'],'sdate':item['startdate'],'edate':item['enddate'],'tel':item['usr']['first_name']}
+            #print(item)
+        else:
+            #context = {'fname': item['fname'], 'rname': item['fcontent'], 'sdate': item['startdate'], 'edate': item['enddate']}
+            allcs = CsFile.objects.filter(apikey=item['apikey'])
+            picd=None
+            for pic in allcs.values():
+                if picd is None:
+                    picd=pic['file']
+                else:
+                    break
+            arr2.append([item['fname'],item['tell'],str(item['startdate'])[:19],str(item['enddate'])[:19],item['where'],picd])
+            #company = get_object_or_404(Corporation, pk=item['usr'])
+            #usrm=get_object_or_404(User, pk=item['usr'])
+            #info={}
+            #context={'fname':item['fname'],'rname':item['rname'],'sdate':item['startdate'],'edate':item['enddate'],'tel':item['usr']['first_name']}
+            #print(item)
+    context={'list':arr,'list2':arr2}
     return render(request, 'latest.html', context)
 
 def near(request):
@@ -127,7 +144,46 @@ def near(request):
     return render(request, 'near.html', context)
 
 def sale(request):
-    context = {}
+    last = Foods.objects.all().order_by('-percent')
+
+    arr = []
+    arr2 = []
+    for i, item in enumerate(last.values()):
+        if i < len(last) / 2:
+            # context = {'fname': item['fname'], 'rname': item['fcontent'], 'sdate': item['startdate'], 'edate': item['enddate']}
+            allcs = CsFile.objects.filter(apikey=item['apikey'])
+            picd = None
+            for pic in allcs.values():
+                if picd is None:
+                    picd = pic['file']
+                else:
+                    break
+            arr.append(
+                [item['fname'], item['tell'], item['percent'], str(item['enddate'])[:19], item['where'],
+                 picd])
+            # company = get_object_or_404(Corporation, pk=item['usr'])
+            # usrm=get_object_or_404(User, pk=item['usr'])
+            # info={}
+            # context={'fname':item['fname'],'rname':item['rname'],'sdate':item['startdate'],'edate':item['enddate'],'tel':item['usr']['first_name']}
+            # print(item)
+        else:
+            # context = {'fname': item['fname'], 'rname': item['fcontent'], 'sdate': item['startdate'], 'edate': item['enddate']}
+            allcs = CsFile.objects.filter(apikey=item['apikey'])
+            picd = None
+            for pic in allcs.values():
+                if picd is None:
+                    picd = pic['file']
+                else:
+                    break
+            arr2.append(
+                [item['fname'], item['tell'], item['percent'], str(item['enddate'])[:19], item['where'],
+                 picd])
+            # company = get_object_or_404(Corporation, pk=item['usr'])
+            # usrm=get_object_or_404(User, pk=item['usr'])
+            # info={}
+            # context={'fname':item['fname'],'rname':item['rname'],'sdate':item['startdate'],'edate':item['enddate'],'tel':item['usr']['first_name']}
+            # print(item)
+    context = {'list': arr, 'list2': arr2}
     return render(request, 'sale.html', context)
 
 def deli(request):
@@ -191,7 +247,7 @@ def foodreg(request):
                 et.replace(hour=int(form.cleaned_data['etime'].split(':')[0]),minute=int(form.cleaned_data['etime'].split(':')[1]))
                 print(st)
                 print(et)
-                food = Foods.objects.create(usr=request.user,fname=form.cleaned_data['fname'],fcontent=form.cleaned_data['fcontent'],price=form.cleaned_data['price'],percent=form.cleaned_data['percent'],startdate=st,enddate=et,apikey=form.cleaned_data['apikey'])
+                food = Foods.objects.create(usr=request.user,fname=form.cleaned_data['fname'],fcontent=form.cleaned_data['fcontent'],price=form.cleaned_data['price'],percent=form.cleaned_data['percent'],startdate=st,enddate=et,apikey=form.cleaned_data['apikey'],where=form.cleaned_data['where'],tell=form.cleaned_data['tell'])
                 return apps(request)
             else:
                 return HttpResponseRedirect('/')

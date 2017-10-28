@@ -29,9 +29,6 @@ class Searchedkey(models.Model):
         return str(self.usr)
 
 class Foods(models.Model):
-    @property
-    def user(self):
-        return User.objects.get(pk=self.user_id)
     time = models.IntegerField(default=0, verbose_name='발송 시각', )
     usr=models.ForeignKey(settings.AUTH_USER_MODEL ,blank = True, null = True)
     fname = models.CharField(u'음식이름', max_length=30, default='null')
@@ -39,7 +36,8 @@ class Foods(models.Model):
     star = models.IntegerField(u'평점', default=0)
     price = models.IntegerField(u'가격', default=0,null = True)
     percent = models.IntegerField(u'할인율', default=0,null = True)
-    where = models.CharField(u'음식점위치', max_length=50)
+    where = models.CharField(u'음식점위치', max_length=200)
+    tell = models.CharField(u'음식점전화번호', max_length=20)
     apikey = models.CharField(u'고유키', max_length=200, default='null')
     gps= models.CharField(u'gps좌표', max_length=30, default='null')
     isdone=models.BooleanField(u'낙찰여부',default=False)

@@ -1,8 +1,231 @@
 {%extends "base.html" %}
 {%block title %}LeftOver Sharing{% endblock %}
-{%block head %}{% endblock %}
+{%block head %}
+     <meta charset="UTF-8">
+        <title>Share Your Food !</title>
+        <link rel="stylesheet" href="../static/ui/css/font-awesome/css/font-awesome.min.css" />
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,700,300italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../static/ui/css/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" href="../static/ui/css/animat/animate.min.css" />
+        <link rel="stylesheet" href="../static/ui/css/fancybox/jquery.fancybox.css" />
+        <link rel="stylesheet" href="../static/ui/css/nivo-lightbox/nivo-lightbox.css" />
+        <link rel="stylesheet" href="../static/ui/css/themes/default/default.css" />
+        <link rel="stylesheet" href="../static/ui/css/owl-carousel/owl.carousel.css" />
+        <link rel="stylesheet" href="../static/ui/css/owl-carousel/owl.theme.css" />
+        <link rel="stylesheet" href="../static/ui/css/owl-carousel/owl.transitions.css">
+
+        <link rel="stylesheet" href="../static/ui/css/style.css" />
+        <link rel="stylesheet" href="../static/ui/css/responsive.css" />
+{% endblock %}
 {%block content %}
-    <div class="container">
-<legend align="center">Bit costs Money, Still Cheapest in the World!<br>Eat Fresh Food and Save Your Earth Now!</legend>
-    </div>
+ <section id="menus" class="menus sections">
+            <div class="container">
+                <div class="row">
+                    <div class="main_menus">
+                        <div class="head_title text-center wow slideInDown" data-wow-duration="2s">
+                            <h2>Food Sale Board</h2><br>
+                            <h5>Bit costs Money, Still Cheapest in the World!<br>Eat Fresh Food and Save Your Earth Now!</h5>
+                            <div class="separetor"></div>
+                        </div>
+
+
+    <!--					게시판썸네일왼쪽덩어리-->
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="single_menus wow slideInLeft" data-wow-duration="1.5s">
+    <!--                          게시판썸네일-->
+                                {% for item in list %}
+                                {% if forloop.counter|divisibleby:2 %}
+                                <div class="boardcard soldoutcard">
+                                    <table>
+                                        <tr>
+                                            <th rowspan="6">
+                                            <img src="../media/{{ item.5 }}" class="cardimage"></th>
+                                            <td>Rates</td>
+                                            <td>:</td>
+                                            <td>★★★★☆ 4.0</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Name </td>
+                                            <td>:</td>
+                                            <td>{{item.0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tel</td>
+                                            <td >:</td>
+                                            <td>{{item.1}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Price Sale</td>
+                                            <td >:</td>
+                                            <td>{{item.2}}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expiration Date</td>
+                                            <td >:</td>
+                                            <td>{{item.3}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td >:</td>
+                                            <td>{{ item.4 }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                {% else %}
+                                    <div class="boardcard">
+                                    <table>
+                                         <tr>
+                                            <th rowspan="6">
+                                            <img src="../media/{{ item.5 }}" class="cardimage"></th>
+                                            <td>Rates</td>
+                                            <td>:</td>
+                                            <td>★★★☆☆ 3.0</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Name </td>
+                                            <td>:</td>
+                                            <td>{{item.0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tel</td>
+                                            <td >:</td>
+                                            <td>{{item.1}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Price Sale</td>
+                                            <td >:</td>
+                                            <td>{{item.2}}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expiration Date</td>
+                                            <td >:</td>
+                                            <td>{{item.3}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td >:</td>
+                                            <td>{{ item.4 }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+
+                            </div>
+                        </div>
+    <!--					게시판썸네일오른쪽덩어리-->
+                           <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="single_menus wow slideInRight" data-wow-duration="1.5s">
+    <!--                          게시판썸네일-->
+                             {% for item in list2 %}
+                                {% if forloop.counter|divisibleby:2 %}
+                                <div class="boardcard soldoutcard">
+                                    <table>
+                                        <tr>
+                                            <th rowspan="6">
+                                            <img src="../media/{{ item.5 }}" class="cardimage"></th>
+                                            <td>Rates</td>
+                                            <td>:</td>
+                                            <td>★★★★☆ 4.0</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Name </td>
+                                            <td>:</td>
+                                            <td>{{item.0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tel</td>
+                                            <td >:</td>
+                                            <td>{{item.1}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Price Sale</td>
+                                            <td >:</td>
+                                            <td>{{item.2}}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expiration Date</td>
+                                            <td >:</td>
+                                            <td>{{item.3}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td >:</td>
+                                            <td>{{ item.4 }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                {% else %}
+                                    <div class="boardcard">
+                                    <table>
+                                         <tr>
+                                            <th rowspan="6">
+                                            <img src="../media/{{ item.5 }}" class="cardimage"></th>
+                                            <td>Rates</td>
+                                            <td>:</td>
+                                            <td>★★★☆☆ 3.0</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>Name </td>
+                                            <td>:</td>
+                                            <td>{{item.0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tel</td>
+                                            <td >:</td>
+                                            <td>{{item.1}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Price Sale</td>
+                                            <td >:</td>
+                                            <td>{{item.2}}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expiration Date</td>
+                                            <td >:</td>
+                                            <td>{{item.3}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td >:</td>
+                                            <td>{{ item.4 }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End of menus Section -->
+        <!-- STRAT SCROLL TO TOP -->
+
+        <div class="scrollup">
+            <a href="#"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
+        <script type="text/javascript" src="../static/ui/js/jquery/jquery.js"></script>
+
+        <script type="text/javascript" src="../static/ui/js/script.js"></script>
+
+        <script type="text/javascript" src="../static/ui/js/bootstrap/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="../static/ui/js/fancybox/jquery.fancybox.pack.js"></script>
+
+        <script type="text/javascript" src="../static/ui/js/nivo-lightbox/nivo-lightbox.min.js"></script>
+
+        <script type="text/javascript" src="../static/ui/js/owl-carousel/owl.carousel.min.js"></script>
+
+
+
+        <script type="text/javascript" src="../static/ui/js/jquery-easing/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="../static/ui/js/wow/wow.min.js"></script>
+
 {% endblock %}
