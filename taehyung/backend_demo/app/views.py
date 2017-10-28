@@ -23,7 +23,7 @@ def post_list_ordered_star(request):
     
     qs_star = Foods.objects.all().order_by('-star')
 
-    print(qs_star)
+
     qs_reply = Reply.objects.all()
     qs_corporation = Corporation.objects.all()
 
@@ -35,6 +35,22 @@ def post_list_ordered_star(request):
     }
     return render(request,"app/ordered_star.html",context)
 
+
+def post_list_ordered_discount(request):
+    
+    qs_discount = Foods.objects.all().order_by('-percent')
+
+
+    qs_reply = Reply.objects.all()
+    qs_corporation = Corporation.objects.all()
+
+    context={   
+        
+        "discount_ordered_list" : qs_discount,
+        "reply_list" : qs_reply,
+        "corporation_list":qs_corporation
+    }
+    return render(request,"app/ordered_discount.html",context)
 
 #Foods Creating and Reply Creating and Corporation Creating
 class FoodsCreateView(CreateView):

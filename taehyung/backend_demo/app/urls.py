@@ -6,7 +6,8 @@ urlpatterns = [
     #Lists pages
     url(r'^$', views.post_list, name='post_list'),
     url(r'^ordered_star/$', views.post_list_ordered_star, name='post_list_ordered_star'),    
-
+    url(r'^ordered_discount/$', views.post_list_ordered_discount, name='post_list_ordered_discount'),    
+    
     #Making New
     url(r'^post/new/$', views.post_new, name='post_new'),
     url(r'^reply/new/$', views.reply_new, name='reply_new'),

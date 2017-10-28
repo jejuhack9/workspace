@@ -33,9 +33,10 @@ class Foods(models.Model):
     regdate = models.DateTimeField(u'생성일시', auto_now=True)
     startdate = models.DateTimeField(u'시작일시', auto_now_add=True)
     enddate = models.DateTimeField(u'종료일시', auto_now_add=True)
+    percent= models.IntegerField(default=0)
     def __str__(self):
         return str(self.time)+" "+str(self.usr)+" "+self.fname+" "+self.fcontent
-    
+
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
         return reverse('app:post_list')#, kwargs={'pk': self.pk})

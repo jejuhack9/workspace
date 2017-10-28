@@ -55,7 +55,7 @@ class FoodForm(forms.Form):
 class FoodModelForm(forms.ModelForm):
     class Meta:
         model = Foods
-        fields = ['fname','fcontent','price','where','rinfo','isdone','file1','file2','file3','file4','file5','issell']
+        fields = ['isdone','percent','fname','fcontent','price','where','rinfo','file1','file2','file3','file4','file5','issell']
 
 class CorporationForm(forms.ModelForm):
     
