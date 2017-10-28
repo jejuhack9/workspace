@@ -29,13 +29,15 @@ urlpatterns = [
     url(r'^login/',autho.login,{'template_name':'login.html'},name='login'),
     url(r'^logout/',autho.logout,{'template_name':'index.html'},name='logout'),
     url(r'^register/$', register, name='register'),
-    url(r'^who/', who),
-    url(r'^latest/', latest),
-    url(r'^near/', near),
-    url(r'^sale/', sale),
-    url(r'^deli/', deli),
+    url(r'^who/', who,name='who'),
+    url(r'^latest/', latest,name='latest'),
+    url(r'^near/', near,name='near'),
+    url(r'^sale/', sale,name='sale'),
+    url(r'^deli/', deli,name='deli'),
     url(r'^sharefood/', sharefood,name='sharefood'),
+    url(r'^sharefood/foodreg', foodreg,name='foodreg'),
     url(r'^jsonapi/(?P<keyword>.*)/$', jsonapi, name='jsonapi'),
+    url(r'^comreg', corporation_new, name='comreg'),
 
 ]
 urlpatterns += static(mysite.settings.MEDIA_URL, document_root=mysite.settings.MEDIA_ROOT)

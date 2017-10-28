@@ -8,7 +8,7 @@
 
 {%block content %}
     <div class="container">
-    <form id="newUserForm" name="newUserForm" method="post" action="appreg" enctype="multipart/form-data">
+    <form id="newUserForm" name="newUserForm" method="post" action="latest" enctype="multipart/form-data">
         {% csrf_token %}
          {% if form.errors %}
                 <div class="alert alert-dismissible alert-danger">
@@ -21,14 +21,14 @@
             {% endif %}
         <div class="container">
             <row>
-                <div class="col-sm-6"><h3>Food Name</h3><input id="fname" name="{{ form.fname.name }}" type="text" placeholder="영문소문자/숫자, 30자 이하" class="form-control input-md" required></div>
+                <div class="col-sm-6"><h3>Food Name</h3><input id="fname" name="{{ form.fname.name }}" type="text" placeholder="write food name" class="form-control input-md" required></div>
                 <div class="col-sm-6"><h3>Sharing/Selling</h3><li><label for="id_sharetype_0"><input type="radio" name="sharetype" value="free" id="id_sharetype_0" required/> Free food</label></li>
                 <li><label for="id_sharetype_1"><input type="radio" name="sharetype" value="discount sale" id="id_sharetype_1" required/> Discount sale</label></li>
                 </div>
             </row>
             <row>
-                <div class="col-sm-6"><h3>Discounted Price</h3><input id="price" name="{{ form.price.name }}" type="text" value="0" placeholder="input only numbers" class="form-control input-md" readonly></div>
-                <div class="col-sm-6"><h3>Discount Rate(%)</h3><input id="percent" name="{{ form.percent.name }}" type="text" value="0" placeholder="input only numbers" class="form-control input-md" readonly></div>
+                <div class="col-sm-6"><h3>Discounted Price</h3><input id="price" name="{{ form.price.name }}" type="text" value="0" placeholder="input only numbers" class="form-control input-md" disabled="true"></div>
+                <div class="col-sm-6"><h3>Discount Rate(%)</h3><input id="percent" name="{{ form.percent.name }}" type="text" value="0" placeholder="input only numbers" class="form-control input-md" disabled="true"></div>
             </row>
             <row>
                 <div class="col-sm-12"><h3>Food Info</h3><textarea name="{{ form.fcontent.name }}" form="newUserForm" class="form-control input-md" cols="40" rows="10" placeholder="Please describe why you made:&#13;&#10;&#13;&#10;What's inside the food:&#13;&#10;&#13;&#10;Whom do you like it to be shared with: &#13;&#10;&#13;&#10;For your Future Customer:" required></textarea></div>
@@ -39,10 +39,16 @@
             </row>
 
         </div>
+        <input id="apikey" name="{{ form.apikey.name }}" type="text" value="{{  }}">
         <br>
         <!-- The div for uploading the images -->
-        <div id="dropzone" class="dropzone"></div>
-        <br>
+        <div class="container">
+            <row>
+                <div class="col-sm-12">
+                    <div id="dropzone" class="dropzone"></div>
+                </div>
+            </row>
+        </div>
         <div align="center">
             <button class="btn btn-danger btn-large" onclick="window.location.reload()">Clear</button>
             <button class="btn btn-primary btn-large" id="save">① Check Food Safety</button>
@@ -55,6 +61,21 @@
     </div>
             <script src="{% static "/upload/js/dropzone.js" %}"></script>
             <script type="text/javascript">
+               $(document).on("click", "#id_sharetype_0", function(e) {
+
+                  $("#price").attr("disabled",true);
+                  $("#percent").attr("disabled",true);
+                  console.log('only sell');
+                }
+              );
+              $(document).on("click", "#id_sharetype_1", function(e) {
+                  $("#price").val(0);
+                  $("#price").removeAttr("disabled");
+                  $("#percent").val(0);
+                  $("#percent").removeAttr("disabled");
+                  console.log('only share');
+                }
+              );
             function offline() {
                 $("#submit").removeAttr("disabled");
             }
@@ -79,6 +100,7 @@
                         });
                     }
                 });
+
 
               // the following function override the "submit" button in the form
               $(document).on("click", "#save", function(e){
@@ -112,13 +134,11 @@
                         if(request.readyState == 4 && request.status == 200) {
                             if(request.responseText=='x')
                             {
-                                alert("앱 이름 영문 or 영문+숫자 조합으로 4글자 이상 입력하셔야합니다");
+                                alert("Pictures are NOT taken less than an hour ago");
                             }
                             else
                             {
-                                redir=("http://"+String(window.location.hostname)+":"+String(window.location.port));
-                                window.location=redir+"/media/zipped/"+request.responseText;
-                                setTimeout(function() {$.get(redir+'/dlzip/'+request.responseText); console.log('deleted!');}, 10000);  //  3초 후 함수가 실행됨
+                                alert("Fresh Food! you may share now");
                                 $("#submit").removeAttr("disabled");
                             }
                         }
