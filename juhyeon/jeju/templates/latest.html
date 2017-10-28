@@ -5,4 +5,11 @@
     <div class="container">
 <legend align="center">Out Now! We show you The Freshest Food Available!<br>Eat Fresh Food and Save Your Earth Now!</legend>
     </div>
+    {% for item in list %}
+        <h3>{{item.0}}</h3>
+        <h3>{{item.1}}</h3>
+        <h3>{{item.2}}</h3>
+        <h3>{{item.3}}</h3>
+        <img src="../media/{{ item.4 }}"></img>
+    {% endfor %}
 {% endblock %}

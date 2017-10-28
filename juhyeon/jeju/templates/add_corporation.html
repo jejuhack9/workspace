@@ -1,7 +1,31 @@
 {%extends "base.html" %}
 {%block title %}LeftOver Sharing{% endblock %}
 {%block head %}
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAwrfz2MVZoTgp-8XvRRrdSyba3_gV_4VU"
+     type="text/javascript"></script>
+    <script type = "text/javascript">
 
+     function geoCode() {
+        var latitudexy = document.getElementsByName('corp_coordinates');
+       	var faddr = document.getElementsByName('corp_location').value;
+       	var geocoder;
+       	geocoder = new google.maps.Geocoder();
+       	geocoder.geocode( { 'address': faddr}, function(results, status) {
+   	  	if (status == google.maps.GeocoderStatus.OK) {
+   			  var faddr_lat = results[0].geometry.location.lat();	//위도
+   			  var faddr_lng = results[0].geometry.location.lng();	//경도
+   		   } else {
+   			  var faddr_lat = "33.500179";
+   			  var faddr_lng = "126.529933";
+   		}
+
+   		alert('address: ' + faddr + '\n\nlat : ' + faddr_lat + '\n\nlng : ' + faddr_lng);
+      latitudexy[0].value = faddr_lat +","+faddr_lng;
+
+   		return;
+     	});
+    }
+    </script>
     <script>
 
      var _gaq = _gaq || [];
@@ -30,11 +54,11 @@
                         <br>
 
                         <form method="POST" action="" enctype="multipart/form-data"> {% csrf_token %}
-
                           {{ form.as_p }}
-
-
+                            <input type="button" onclick="geoCode()" value="Encode" id = "encoding_btn"></p>
                         </form>
+
+
                         <button type="submit" class="btn btn-primary btn-lg">Write Reply</button>
                     </div>
 

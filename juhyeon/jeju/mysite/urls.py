@@ -23,21 +23,22 @@ import mysite.settings
 
 
 urlpatterns = [
-    url(r'^$', index),
+    url(r'^$', landing),
     url(r'^search/', search),
     url(r'^admin/', admin.site.urls),
     url(r'^login/',autho.login,{'template_name':'login.html'},name='login'),
-    url(r'^logout/',autho.logout,{'template_name':'index.html'},name='logout'),
+    url(r'^logout/',autho.logout,{'template_name':'latest.html'},name='logout'),
     url(r'^register/$', register, name='register'),
     url(r'^who/', who,name='who'),
     url(r'^latest/', latest,name='latest'),
     url(r'^near/', near,name='near'),
     url(r'^sale/', sale,name='sale'),
     url(r'^deli/', deli,name='deli'),
-    url(r'^sharefood/', sharefood,name='sharefood'),
     url(r'^sharefood/foodreg', foodreg,name='foodreg'),
+    url(r'^sharefood/', sharefood,name='sharefood'),
     url(r'^jsonapi/(?P<keyword>.*)/$', jsonapi, name='jsonapi'),
     url(r'^comreg', corporation_new, name='comreg'),
+    url(r'^reply_new',reply_new,name='reply_new'),
 
 ]
 urlpatterns += static(mysite.settings.MEDIA_URL, document_root=mysite.settings.MEDIA_ROOT)

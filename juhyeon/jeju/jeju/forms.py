@@ -117,30 +117,30 @@ class RegistrationForm(forms.Form):
             return username
         raise forms.ValidationError('이미 등록된 이름입니다. 다른 이름을 쓰세요')
 
-    def clean_phone(self):
-        phraw=self.cleaned_data['phone']
-        if not str(phraw).__contains__('-'):
-            raise forms.ValidationError('휴대전화번호에 하이픈이 없습니다.-로 구분해주세요.')
-        else:
-            comp=str(phraw).split('-')
-            if len(comp) is not 3:
-                raise forms.ValidationError('올바른 휴대전화번호 형식이 아닙니다.')
-            else:
-                for num in comp:
-                    try:
-                        int(num)
-                    except:
-                        raise forms.ValidationError('휴대전화번호에 문자가 있습니다.')
+    # def clean_phone(self):
+    #     phraw=self.cleaned_data['phone']
+    #     if not str(phraw).__contains__('-'):
+    #         raise forms.ValidationError('휴대전화번호에 하이픈이 없습니다.-로 구분해주세요.')
+    #     else:
+    #         comp=str(phraw).split('-')
+    #         if len(comp) is not 3:
+    #             raise forms.ValidationError('올바른 휴대전화번호 형식이 아닙니다.')
+    #         else:
+    #             for num in comp:
+    #                 try:
+    #                     int(num)
+    #                 except:
+    #                     raise forms.ValidationError('휴대전화번호에 문자가 있습니다.')
 
 
 class FoodForm(forms.Form):
     apikey = forms.CharField(label=u'고유key', max_length=32)
     acctype = [('free', u'free food'),
                ('discount sale', u'discount sale')]
-    price = forms.IntegerField(label='가격')
-    percent=forms.IntegerField(label='할인율')
+    price = forms.IntegerField(label='가격',required=False)
+    percent=forms.IntegerField(label='할인율',required=False)
     sharetype = forms.ChoiceField(label='판매종류', choices=acctype, widget=forms.RadioSelect())
-    fname = forms.CharField(label='음식 이름(ID)',min_length=8, max_length=30)
-    fcontent = forms.CharField(label='음식(정보)', min_length=2, max_length=2000)
+    fname = forms.CharField(label='음식 이름(ID)',min_length=2, max_length=30)
+    fcontent = forms.CharField(label='음식(정보)', min_length=2, max_length=1000)
     stime = forms.CharField(label='생성시각', min_length=5, max_length=5, help_text=("13:23"))
     etime = forms.CharField(label='종료시각', min_length=5, max_length=5, help_text=("15:41"))

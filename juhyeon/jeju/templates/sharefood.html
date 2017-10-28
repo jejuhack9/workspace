@@ -8,7 +8,7 @@
 
 {%block content %}
     <div class="container">
-    <form id="newUserForm" name="newUserForm" method="post" action="latest" enctype="multipart/form-data">
+    <form id="newUserForm" name="newUserForm" method="post" action="foodreg" enctype="multipart/form-data">
         {% csrf_token %}
          {% if form.errors %}
                 <div class="alert alert-dismissible alert-danger">
@@ -31,7 +31,7 @@
                 <div class="col-sm-6"><h3>Discount Rate(%)</h3><input id="percent" name="{{ form.percent.name }}" type="text" value="0" placeholder="input only numbers" class="form-control input-md" disabled="true"></div>
             </row>
             <row>
-                <div class="col-sm-12"><h3>Food Info</h3><textarea name="{{ form.fcontent.name }}" form="newUserForm" class="form-control input-md" cols="40" rows="10" placeholder="Please describe why you made:&#13;&#10;&#13;&#10;What's inside the food:&#13;&#10;&#13;&#10;Whom do you like it to be shared with: &#13;&#10;&#13;&#10;For your Future Customer:" required></textarea></div>
+                <div class="col-sm-12"><h3>Food Info</h3><input id="fcontent" name="{{ form.fcontent.name }}" type="text" form="newUserForm" class="form-control input-md" cols="40" rows="10" placeholder="Please describe why you made:&#13;&#10;&#13;&#10;What's inside the food:&#13;&#10;&#13;&#10;Whom do you like it to be shared with: &#13;&#10;&#13;&#10;For your Future Customer:" required></input></div>
             </row>
             <row>
                 <div class="col-sm-6"><h3>Food Created Time</h3><input id="stime" name="{{ form.stime.name }}" type="text"  placeholder="13:31" class="form-control input-md"></div>
@@ -39,7 +39,7 @@
             </row>
 
         </div>
-        <input id="apikey" name="{{ form.apikey.name }}" type="text" value="{{  }}">
+        <input id="apikey" name="{{ form.apikey.name }}" type="hidden" value="{{genkey}}">
         <br>
         <!-- The div for uploading the images -->
         <div class="container">
@@ -134,7 +134,7 @@
                         if(request.readyState == 4 && request.status == 200) {
                             if(request.responseText=='x')
                             {
-                                alert("Pictures are NOT taken less than an hour ago");
+                                alert("Pictures should not be taken less than an hour ago");
                             }
                             else
                             {
