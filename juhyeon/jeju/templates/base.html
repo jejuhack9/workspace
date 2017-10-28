@@ -34,10 +34,10 @@
               <li><a href="/sale/">Discount Sale</a></li>
               <li><a href="/deli/">Most Delicious</a></li>
               {% if user.is_authenticated %}
-                  <li><a href="/logout">{{ user.username }} Logout</a></li>
                   {% ifequal user.last_name "in" %}
-                    <li><a href="/sharefood">Share Food</a></li>
+                      <li><a href="/sharefood"><b><font color="red">Share Food</font></b></a></li>
                   {% endifequal %}
+                  <li><a href="/logout">{{ user.username }} Logout</a></li>
               {% else %}
                   <li><a href="/register/">Register</a></li>
                   <li><a href="/login/">Login</a></li>

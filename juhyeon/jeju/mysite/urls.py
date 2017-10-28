@@ -35,6 +35,8 @@ urlpatterns = [
     url(r'^sale/', sale),
     url(r'^deli/', deli),
     url(r'^sharefood/', sharefood,name='sharefood'),
+    url(r'^jsonapi/(?P<keyword>.*)/$', jsonapi, name='jsonapi'),
+
 ]
 urlpatterns += static(mysite.settings.MEDIA_URL, document_root=mysite.settings.MEDIA_ROOT)
 urlpatterns += static(mysite.settings.STATIC_URL, document_root=mysite.settings.STATIC_ROOT)
