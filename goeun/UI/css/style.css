@@ -208,7 +208,7 @@ a:hover{
 	padding-top: 24px;
 }
 
-.banner .scroll_btn {
+.home .scroll_btn {
 	background: url(../images/scroll.gif) 50% 50% no-repeat rgba(215, 181 ,94, 0);
 	border: 2px solid #fff;
 	border-radius: 50%;
@@ -228,7 +228,7 @@ a:hover{
 	bottom:0;
 }
 
-.banner .scroll_btn:hover {
+.home .scroll_btn:hover {
 	background: url(../images/scroll.gif) 50% 50% no-repeat #f3c30f;
 	opacity: .85;
 	-moz-opacity: .85;
@@ -292,20 +292,20 @@ a:hover{
 
 
 
-/* Banner section */
+/* home section */
 
-.banner{
+.home{
 	background:url(../images/bannerbg.jpg) no-repeat;
 	position:relative;
 	background-size:cover;
 }
 
-.main_banner_area{
+.main_home_area{
 	padding:300px 0px;
 	overflow:hidden;
 }
 
-.single_banner_text p{
+.single_home_text p{
 	font-size:40px;
 	color:#3c3c3c;
 }
@@ -313,50 +313,50 @@ a:hover{
 
 
 
-/* features section */
-.features{
+/* servicecontents section */
+.servicecontents{
 	background:#f3c30f;
 }
 
-.sinle_features{
+.sinle_servicecontents{
 	margin:32px 0px;
 }
 
-.sinle_features img{
+.sinle_servicecontents img{
 	margin-bottom:25px;
 }
-.sinle_features h5{
+.sinle_servicecontents h5{
 	margin-bottom:20px;
 	color:#3c3c3c;
 	font-weight:700;
 	font-size:20px;
 }
-.sinle_features p{
+.sinle_servicecontents p{
 	color:#3c3c3c;
 	font-weight:300;
 	font-size:18px;
 }
 
-/* Special Section */
-.special{}
+/* members Section */
+.members{}
 
-.main_special{
+.main_members{
     padding-bottom: 100px;
     overflow: hidden;	
 }
 
-.single_special{
+.single_members{
 	padding:0;
 	
 }
-.single_special_img{
+.single_members_img{
 	position:relative;
 }
-.single_special_img:hover .single_special_overlay{
+.single_members_img:hover .single_members_overlay{
 	opacity:1;
 }
 
-.single_special_overlay{
+.single_members_overlay{
 	background:rgba(221, 221, 221, 0.8);
 	padding:20px 10px;
 	position:absolute;
@@ -373,11 +373,11 @@ a:hover{
     width: 50%;
     margin: 0 auto;
 }
-.single_special_overlay h3{
+.single_members_overlay h3{
 	color:#666;
 	font-size:18px;
 }
-.single_special_overlay p{
+.single_members_overlay p{
 	color:#666;
 	font-size:16px;
 	font-weight:300;
@@ -385,15 +385,15 @@ a:hover{
 }
 
 
-/* Abouts Section */
+/* motivation Section */
 .head_title{
 	padding-bottom:50px;
 }
-.abouts{
+.motivation{
 	background:#ddd;
 }
 
-.single_abouts p{
+.single_motivation p{
 	font-size:30px;
 	font-weight:300;
 	text-align:center;

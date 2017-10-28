@@ -9,8 +9,8 @@ from jeju.models import *
 class RegistrationForm(forms.Form):
     acctype = [('in', u'food donor'),
                ('out', u'food recipient')]
-    username = forms.CharField(label='사용자 이름(ID)',min_length=8, max_length=30,help_text=("8~30자의 쉽지 않은 영문+숫자 조합입니다"))
-    rname = forms.CharField(label='예금주(실명)', min_length=2, max_length=4, help_text=("2~4자의 한글실명입니다."))
+    username = forms.CharField(label='사용자 이름(ID)',min_length=4, max_length=30,help_text=("8~30자의 쉽지 않은 영문+숫자 조합입니다"))
+    rname = forms.CharField(label='예금주(실명)', min_length=2, max_length=10, help_text=("2~4자의 한글실명입니다."))
     email = forms.EmailField(label='이메일',help_text=('회원정보 수정시 필요한 이메일 주소입니다.'))
     password1 = forms.CharField(label='비밀번호(PW)',widget=forms.PasswordInput(),help_text=("8~30자 입니다."),min_length=8,max_length=30)
     password2 = forms.CharField(label='비밀번호 재입력',widget=forms.PasswordInput())
@@ -54,17 +54,15 @@ class RegistrationForm(forms.Form):
                     except:
                         raise forms.ValidationError('휴대전화번호에 문자가 있습니다.')
 
-    def clean_rname(self):
-        nameraw=self.cleaned_data['rname']
-        if re.search(r'^[A-Za-z0-9_-]*$', nameraw):
-            raise forms.ValidationError('이름은 순한글로만 입력하셔야 합니다.')
-        else:
-            return nameraw
 
-    def clean_content(self):
-        content=self.cleaned_data['content']
-        if content is None:
-            raise forms.ValidationError('사용 목적을 정확히 입력하세요')
-        else:
-            return content
-
+class FoodForm(forms.Form):
+    apikey = forms.CharField(label=u'고유key', max_length=32)
+    acctype = [('free', u'free food'),
+               ('discount sale', u'discount sale')]
+    price = forms.IntegerField(label='가격')
+    percent=forms.IntegerField(label='할인율')
+    sharetype = forms.ChoiceField(label='판매종류', choices=acctype, widget=forms.RadioSelect())
+    fname = forms.CharField(label='음식 이름(ID)',min_length=8, max_length=30)
+    fcontent = forms.CharField(label='음식(정보)', min_length=2, max_length=2000)
+    stime = forms.CharField(label='생성시각', min_length=5, max_length=5, help_text=("13:23"))
+    etime = forms.CharField(label='종료시각', min_length=5, max_length=5, help_text=("15:41"))

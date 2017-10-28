@@ -35,14 +35,9 @@ class Foods(models.Model):
     star = models.IntegerField(u'평점', default=0)
     price = models.IntegerField(u'가격', default=0)
     where = models.CharField(u'음식점위치', max_length=50)
-    rinfo = models.CharField(u'음식점기본정보', max_length=200, default='null')
+    #rinfo = models.CharField(u'음식점기본정보', max_length=200, default='null')
     gps= models.CharField(u'gps좌표', max_length=30, default='null')
     isdone=models.BooleanField(u'낙찰여부',default=False)
-    file1 = models.FileField(upload_to='files/%Y%m%d/')
-    file2 = models.FileField(upload_to='files/%Y%m%d/')
-    file3 = models.FileField(upload_to='files/%Y%m%d/')
-    file4 = models.FileField(upload_to='files/%Y%m%d/')
-    file5 = models.FileField(upload_to='files/%Y%m%d/')
     issell=models.BooleanField(u'응답생성여부',default=False)
     regdate = models.DateTimeField(u'생성일시', default=datetime.date.today)
     startdate = models.DateTimeField(u'시작일시', default=datetime.date.today)
@@ -50,6 +45,15 @@ class Foods(models.Model):
     def __str__(self):
         return str(self.time)+" "+str(self.usr)+" "+self.fname+" "+self.fcontent
 
-
+class CsFile(models.Model):
+    usr=models.ForeignKey(settings.AUTH_USER_MODEL ,blank = True, null = True)
+    apikey = models.CharField(u'APIkey', max_length=32, default='null')
+    #file = models.FileField(upload_to='files/%Y%m%d/')
+    file = models.CharField(u'파일이름', max_length=100,default='null')
+    regdate = models.DateTimeField(u'등록일시', default=datetime.date.today)  # 최종업데이트 날짜
+    update = models.DateTimeField(u'갱신일시', default=datetime.date.today)  # 최종업데이트 날짜
+    logcnt=models.IntegerField(u'등록로그수',default=0)
+    def __str__(self):
+        return str(self.file)
 class Reply(models.Model):
     pass
