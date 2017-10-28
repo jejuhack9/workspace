@@ -313,25 +313,25 @@ a:hover{
 
 
 
-/* features section */
-.features{
+/* servicecontents section */
+.servicecontents{
 	background:#f3c30f;
 }
 
-.sinle_features{
+.sinle_servicecontents{
 	margin:32px 0px;
 }
 
-.sinle_features img{
+.sinle_servicecontents img{
 	margin-bottom:25px;
 }
-.sinle_features h5{
+.sinle_servicecontents h5{
 	margin-bottom:20px;
 	color:#3c3c3c;
 	font-weight:700;
 	font-size:20px;
 }
-.sinle_features p{
+.sinle_servicecontents p{
 	color:#3c3c3c;
 	font-weight:300;
 	font-size:18px;
