@@ -35,6 +35,10 @@ class Foods(models.Model):
     enddate = models.DateTimeField(u'종료일시', auto_now_add=True)
     def __str__(self):
         return str(self.time)+" "+str(self.usr)+" "+self.fname+" "+self.fcontent
+    
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('app:post_list')#, kwargs={'pk': self.pk})
 
 class Reply(models.Model):
     usr = models.ForeignKey(settings.AUTH_USER_MODEL ,blank = True, null = True)

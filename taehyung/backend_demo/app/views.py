@@ -5,8 +5,6 @@ from .forms import ReplyForm, CorporationForm, FoodModelForm
 from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
-
 def post_list(request):
     qs = Foods.objects.all().order_by('-regdate')
 
@@ -19,28 +17,6 @@ def post_list(request):
         "corporation_list":qs_corporation
     }
     return render(request,"app/index.html",context)
-
-'''
-def post_edit(request, id=None):
-    
-    instance = get_object_or_404(Foods, id=id)
-    print(instance)
-    form = FoodForm(request.POST)
-    print(form)
-
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url())
-
-    context ={
-        "instance":instance,
-        "form":form,
-        }
-    return render(request, "app/add_food.html",context)
-'''
-
-
 
 
 def post_list_ordered_star(request):
@@ -60,27 +36,9 @@ def post_list_ordered_star(request):
     return render(request,"app/ordered_star.html",context)
 
 
-
-def post_list_near_around(request):
-    
-    
-    qs_near_around = Foods.objects.all().order_by('-star')
-
-    qs_reply = Reply.objects.all()
-    qs_corporation = Corporation.objects.all()
-
-    context={   
-        
-        "star_ordered_list" : qs_star,
-        "reply_list" : qs_reply,
-        "corporation_list":qs_corporation
-    }
-    return render(request,"app/ordered_star.html",context)
-
-
+#Foods Creating and Reply Creating and Corporation Creating
 class FoodsCreateView(CreateView):
     model = Foods
-    fields = 'all'
     form_class = FoodModelForm
     template_name = 'app/add_food.html'
 
@@ -90,8 +48,6 @@ class FoodsCreateView(CreateView):
         posts.save()
         return super(FoodsCreateView, self).form_valid(form)
 
-
-#Reply Creating and Corporation Creating
 
 class ReplyCreateView(CreateView):
     model = Reply
@@ -103,6 +59,7 @@ class ReplyCreateView(CreateView):
         reply.usr = self.request.user
         reply.save()
         return super(ReplyCreateView, self).form_valid(form)
+
 
 class CorporationCreateView(CreateView):
     model = Corporation
@@ -116,10 +73,12 @@ class CorporationCreateView(CreateView):
         return super(CorporationCreateView, self).form_valid(form)
 
 
+#Making New
 post_new = login_required(FoodsCreateView.as_view(model=Foods,form_class=FoodModelForm, template_name = 'app/add_food.html'))
 reply_new = login_required(ReplyCreateView.as_view(model=Reply,form_class=ReplyForm,template_name = 'app/add_reply.html'))
 corporation_new = login_required(CorporationCreateView.as_view(model=Corporation,form_class=CorporationForm,template_name = 'app/add_corporation.html'))
 
+#Edit
 post_edit = login_required(UpdateView.as_view(model=Foods, form_class=FoodModelForm, template_name = 'app/add_food.html'))
 
 
