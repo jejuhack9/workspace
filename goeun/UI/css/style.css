@@ -208,7 +208,7 @@ a:hover{
 	padding-top: 24px;
 }
 
-.banner .scroll_btn {
+.home .scroll_btn {
 	background: url(../images/scroll.gif) 50% 50% no-repeat rgba(215, 181 ,94, 0);
 	border: 2px solid #fff;
 	border-radius: 50%;
@@ -228,7 +228,7 @@ a:hover{
 	bottom:0;
 }
 
-.banner .scroll_btn:hover {
+.home .scroll_btn:hover {
 	background: url(../images/scroll.gif) 50% 50% no-repeat #f3c30f;
 	opacity: .85;
 	-moz-opacity: .85;
@@ -292,20 +292,20 @@ a:hover{
 
 
 
-/* Banner section */
+/* home section */
 
-.banner{
+.home{
 	background:url(../images/bannerbg.jpg) no-repeat;
 	position:relative;
 	background-size:cover;
 }
 
-.main_banner_area{
+.main_home_area{
 	padding:300px 0px;
 	overflow:hidden;
 }
 
-.single_banner_text p{
+.single_home_text p{
 	font-size:40px;
 	color:#3c3c3c;
 }
