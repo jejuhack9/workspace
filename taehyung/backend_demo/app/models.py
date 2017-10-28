@@ -57,14 +57,16 @@ class Reply(models.Model):
 class Corporation(models.Model):
     usr = models.ForeignKey(settings.AUTH_USER_MODEL ,blank = True, null = True)
     corp_logo = models.FileField(upload_to='files/%Y%m%d/')
-    corp_name = models.CharField(max_length=30, default='null')
-    corp_descriptioin = models.TextField(default='null')
-    
-    
+    corp_descriptioin = models.TextField()
+    corp_location = models.TextField(max_length=200)
+    corp_coordinates = models.CharField(max_length=50)
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
         return reverse('app:post_list')#, kwargs={'pk': self.pk})
+
+    def __str__(self):
+        return str(self.usr)
 
 
 
