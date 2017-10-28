@@ -3,32 +3,7 @@
 {% block content %}
 
 {% load thumbnail %}
-<!--POST start-->
-<div class="container">
-    <div class="row">
-      <div class="col-md-10 col-sm-10">
-        <h2 class="page-header">Post</h2>
-          <section class="comment-list">
-            <!-- First Comment -->
 
-
-            {% for post in foods_list %}
-              <p>{{post.id}}</p>
-              <p>{{post.fname}}</p>
-              <p>{{post.fcontent}}</p>
-              <p style= "font-size:40">{{ post.regdate }}</p>
-              <p >{{post.price}}</p>
-              <p>star : {{post.star}}</p>
-
-              <hr>
-            {% endfor %}
-          </section>
-      </div>
-    </div>
-
-  </div>
-
-  <!--POST end-->
     
     <div class="container">
       <div class="row">
