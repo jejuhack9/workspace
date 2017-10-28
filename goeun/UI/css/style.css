@@ -447,13 +447,16 @@ a:hover{
 
 
 
-/*게시판명함*/
+/*게시판카드*/
 .boardcard{
     border-radius: 10px;
     margin: 20px 0px;
     border:1px solid #777777;
     padding: 20px;
 }
+.soldoutcard{
+    opacity: 0.5;
+}/*판매완료 된 카드 속성*/
 .cardimage{
     width: 150px;
     height: 150px;
