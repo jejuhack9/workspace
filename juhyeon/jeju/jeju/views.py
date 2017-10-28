@@ -16,6 +16,7 @@ from urllib.parse import unquote
 import json
 from ipware.ip import get_ip
 import uuid
+import jeju.matzip as matzip
 from django.utils import timezone
 import pytz
 tz=pytz.timezone('Asia/Seoul')
@@ -96,4 +97,10 @@ def sale(request):
 def deli(request):
     context = {}
     return render(request, 'deli.html', context)
+
+def jsonapi(request,keyword):
+    rst=matzip.search(keyword)
+    js = json.dumps(rst, ensure_ascii=False)
+    return HttpResponse(js, content_type=u"application/json; charset=utf-8", status=200)
+
 

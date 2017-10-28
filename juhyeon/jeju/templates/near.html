@@ -1,8 +1,215 @@
 {%extends "base.html" %}
 {%block title %}LeftOver Sharing{% endblock %}
-{%block head %}{% endblock %}
+{%block head %}
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 300%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #panel {
+        position: absolute;
+        top: 20%;
+        left: 65%;
+        right:3%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 0px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 0px;
+      }
+       @media ( max-width: 1024px ) {
+        #panel {
+          position: left;
+          left: 0;
+          right: 0;
+          z-index:0;
+          border: 0px solid #999;
+        }
+        #map {
+          top:0%;
+        }
+      }
+    </style>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-1.28.3.js"></script>
+    <!-- regression.js -->
+    <script src="https://Tom-Alexander.github.io/regression-js/jquery.flot.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/regression/1.4.0/regression.min.js"></script>
+{% endblock %}
 {%block content %}
     <div class="container">
 <legend align="center">So Close! We show you The Nearest Food Available!<br>Grab Food infront of your Door and Save Your Earth Now!</legend>
     </div>
+    <div id="map"></div>
+    <div id="panel">
+      <h3>Find all the Avaliable Food<br>From your place to World Wide!</h3>
+      <input id="address" type="textbox" size="35" value="JEJU INNOVATION HUB">
+      <input id="submit" type="button" value="Search Your Place" >
+      <input type="button" id="sclear" value="Reset Map">
+       <div style="width: 99%;" id="analysis" align="left"></div>
+       <hr style='border: dashed 1px black;'>
+       <div id="oracle"></div>
+    </div>
+    <script>
+        function geokey(){
+           var keys=["AIzaSyCIJgbczxaPNjRWMvIXlQhNjUWAT7TtquQ","AIzaSyA7FyX4lDBiYsCG_KeOm5g-NmXqOmwWoeQ","AIzaSyCHFFfOhqJdNfvclloArU1lhieenbuDyTk","AIzaSyAf3lfCaL7fROslPiLQIvMX8lbX9IVZ9m0"];
+           var rand = keys[Math.floor(Math.random() * keys.length)];
+      return rand;
+    }
+      function geoFindMe(map,geocoder) {
+            if (!navigator.geolocation){
+              alert("사용자의 브라우저는 지오로케이션을 지원하지 않습니다.");
+            }
+            function success(position) {
+              var latitude  = position.coords.latitude;
+              var longitude = position.coords.longitude;
+              var myLatlng = {lat: latitude, lng: longitude};
+              map.setCenter(myLatlng);
+              addr="https://maps.googleapis.com/maps/api/geocode/json?latlng="
+              addr+=(latitude+",");
+              addr+=longitude;
+              addr+=("&key="+geokey());
+              $.getJSON(addr,function(result)
+              {
+                if (result.status=='OK')
+                {
+                  document.getElementById('address').value=(result.results[0]['formatted_address']);
+                  //geocodeAddress(geocoder, map);
+                }
+              });
+            };
+
+            function error() {
+                alert("사용자의 위치를 찾을 수 없습니다.");
+            };
+            navigator.geolocation.getCurrentPosition(success, error);
+      }
+      function initMap() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 17,
+          center: {lat: 33.5003192, lng: 126.5278462}
+
+        });
+        var geocoder = new google.maps.Geocoder();
+        geoFindMe(map,geocoder);
+        document.getElementById('address').addEventListener('keypress', function (e) {
+            var key = e.which || e.keyCode;
+            if (key === 13) { // 13 is enter
+              geocodeAddress(geocoder, map);
+            }
+        });
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+        document.getElementById('sclear').addEventListener('click', function() {
+          initMap();
+        });
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        if(address.length>10)
+        {
+            address="제주창조경제혁신센터"
+        }
+
+        $.ajax ({
+        url : "http://127.0.0.1:9107/jsonapi/"+address,          // 서버측에서 가져올 페이지
+
+        success : function (result) {   // 정상이든 비정상인든 실행이 완료될 경우 실행될 함수
+             for(i=0;i<10;i++)
+            {
+
+                  var pm=result.data[i].distance;
+                  var time=new Date().toLocaleString();
+                  var urllink="http://maps.google.com/?daddr="+result.data[i].lat+","+result.data[i].lng;
+                  var grade=result.data[i].addr;
+                  var loc={lat: parseFloat(result.data[i].lat), lng: parseFloat(result.data[i].lng)}
+                  if(result.data[i].phone!="None") {
+                      grade+=("<br>"+result.data[i].phone);
+                  }
+                  var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h3 id="firstHeading" class="firstHeading">'+result.data[i].name+'</h3>'+
+            '<div id="bodyContent">'+
+            '<p><b>'+grade+'</b></p>'+
+            '<p>Latest Update: '+time +'</p><br><a href="'+urllink+'" target="_blank">'+
+            'Navigate to Restaurant</a>'+
+            '</div>'+
+            '</div>';
+        document.getElementById('oracle').innerHTML+=(contentString+"<hr style='border: dashed 1px black;'>");
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+                  var marker = new google.maps.Marker({
+                  map: resultsMap,
+                  position: loc,
+                  label:pm
+                  });
+                  marker.addListener('click', function() {
+                  infowindow.open(map, marker);
+                  });
+                  infowindow.open(map, marker);
+                    }
+        }
+
+        });
+
+
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            var lt=results[0].geometry.location.lat();
+            var lg=results[0].geometry.location.lng();
+            resultsMap.setCenter({lat:lt,lng:lg});
+                  var pm="0m";
+                  var time=new Date().toLocaleString();
+                  var urllink="http://pmpm";
+                  var grade="This is Where you are";
+                  var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">'+address+' ('+pm+')</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>'+grade+'</b></p>'+
+            '<p>Latest Update: '+time +'</p><br><a href="'+urllink+'" target="_blank">'+
+            'Go to Website</a>'+
+            '</div>'+
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+                  var marker = new google.maps.Marker({
+                  map: resultsMap,
+                  position: results[0].geometry.location,
+                  label:pm
+                  });
+                  marker.addListener('click', function() {
+                  infowindow.open(map, marker);
+                  });
+                  infowindow.open(map, marker);
+
+          } else {
+            alert('잘못된 지역명을 입력하셨습니다(오류): ' + status);
+          }
+        });
+        //getjson
+      };
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCekU-pwSBtszzbrirFfSEXIEkg2wiw-tc&callback=initMap">
+    </script>
 {% endblock %}
