@@ -312,7 +312,6 @@ a:hover{
 
 
 
-
 /* servicecontents section */
 .servicecontents{
 	background:#f3c30f;
@@ -336,6 +335,9 @@ a:hover{
 	font-weight:300;
 	font-size:18px;
 }
+
+
+
 
 /* members Section */
 .members{}
@@ -385,6 +387,8 @@ a:hover{
 }
 
 
+
+
 /* motivation Section */
 .head_title{
 	padding-bottom:50px;
@@ -400,6 +404,7 @@ a:hover{
 	font-family: 'Merriweather', serif;
 }
 .signature_img{}
+
 
 
 /* Menus Section */
@@ -425,7 +430,6 @@ a:hover{
 	padding:5px 10px;
 	display:block;	
 }
-
 .single_menus{
 	padding-bottom:60px;
 }
@@ -442,11 +446,34 @@ a:hover{
 }
 
 
-/* Contact Section */
 
-.main_contact_content{
-	
+/*게시판명함*/
+.boardcard{
+    border-radius: 10px;
+    margin: 20px 0px;
+    border:1px solid #777777;
+    padding: 20px;
 }
+.cardimage{
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+}
+table {
+    width: 100%;
+}
+th{
+    width: 150px;
+}
+td{
+    padding-left: 10px;
+}
+
+
+
+
+/* Contact Section */
+.main_contact_content{}
 .single_contact{
     margin-bottom: 80px;
 	margin-left:10px;
@@ -457,18 +484,15 @@ a:hover{
 .single_contact span{
 	display:block;
 }
-
 .contact_form_area{}
-
 .contact_form_area h3{
 	font-size:18px;
 	text-transform:uppercase;
 	padding:12px;
 	margin-bottom:20px;
 }
-.form_btn_area{
-	
-}
+.form_btn_area{}
+
 
 
 
@@ -518,7 +542,6 @@ a:hover{
 
 
 /* scrollup */
-
 .scrollup{
 	width: 30px;
 	height: 30px;
@@ -551,5 +574,4 @@ a:hover{
 	margin-top: -7px;
 	margin-left: -6px;
 	text-decoration: none;
-
 }
