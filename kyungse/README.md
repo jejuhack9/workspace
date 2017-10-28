@@ -3,14 +3,14 @@ Personal Workspace folder for each
 
 ## folder owner
 
-* juhyeon(integrater)
-
-* sanghyo
-
 * kyungse
 
-* goeun
+=> make presentation;
 
-* nahyun
+=> make popup code on board-main;
 
-* taehyung
+=> make business model;
+
+=> collect data & analysis;
+
+=> study javascript & css & bootstrap through this hackathon experience;
