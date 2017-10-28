@@ -1,0 +1,102 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <link rel="stylesheet" href="bootstrap.css" type="text/css">
+    <script type="text/javascript" src="bootstrap.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAwrfz2MVZoTgp-8XvRRrdSyba3_gV_4VU"
+     type="text/javascript"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">    <title>Jeju Hackathon | LeftOver Sharing</title>
+    </head>
+    <body>
+    <nav class="navbar navbar-inverse navbar-center">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Jeju Hackathon::LeftoverShare</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+        <form class="navbar-form navbar-right" action="/search/" method="POST" enctype="multipart/form-data" role="search">
+            <div class="form-group">
+              <input type="text" name="keyword" size="20" class="form-control" placeholder="Your Taste Now?">
+            </div>
+            <button type="submit" class="btn btn-default">Search Leftovers</button>
+        <input type='hidden' name='csrfmiddlewaretoken' value='7uUAwgSLIWBKJC47mUILXAOoQmdhSAb4tNfE6E1kyzqDqME4BDc9UofcFrdNsnVm' />
+        </form>
+          <ul class="nav navbar-nav navbar-left">
+              <li><a href="/who/">Who we are?</a></li>
+              <li><a href="/latest/">Latest Food</a></li>
+              <li><a href="/near/">Near around Food</a></li>
+              <li><a href="/sale/">Discount Sale</a></li>
+              <li><a href="/deli/">Most Delicious</a></li>
+              <li><a href="/sharefood"><b><font color="red">Share Food</font></b></a></li>
+              <li><a href="/logout">drexly0101 Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <script type = "text/javascript">
+
+     function geoCode() {
+        var latitudexy = document.getElementById('textArea_get_x_y');
+       	var faddr = document.getElementById('textArea_write_addr').value;
+       	var geocoder;
+       	geocoder = new google.maps.Geocoder();
+       	geocoder.geocode( { 'address': faddr}, function(results, status) {
+   	  	if (status == google.maps.GeocoderStatus.OK) {
+   			  var faddr_lat = results[0].geometry.location.lat();	//위도
+   			  var faddr_lng = results[0].geometry.location.lng();	//경도
+   		   } else {
+   			  var faddr_lat = "33.500179";
+   			  var faddr_lng = "126.529933";
+   		}
+
+   		alert('address: ' + faddr + '\n\nlat : ' + faddr_lat + '\n\nlng : ' + faddr_lng);
+      latitudexy.value = faddr_lat +","+faddr_lng;
+
+   		return;
+     	});
+    }
+    </script>
+
+  <div class="container">
+          <div class="col-sm-12">
+              <form method="POST" action="" enctype="multipart/form-data"> <input type='hidden' name='csrfmiddlewaretoken' value='7uUAwgSLIWBKJC47mUILXAOoQmdhSAb4tNfE6E1kyzqDqME4BDc9UofcFrdNsnVm' />
+                <div class="form-group">
+
+
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <h2 >Update Corporation Information</h2>
+                        <br>
+
+                        <form method="POST" action="" enctype="multipart/form-data"> <input type='hidden' name='csrfmiddlewaretoken' value='7uUAwgSLIWBKJC47mUILXAOoQmdhSAb4tNfE6E1kyzqDqME4BDc9UofcFrdNsnVm' />
+
+                          <p><label for="id_corp_logo">Corp logo:</label> <input type="file" name="corp_logo" id="id_corp_logo" required class="btn btn-default btn-lg" /></p>
+<p><label for="textArea">Corp descriptioin:</label> <textarea name="corp_descriptioin" row="3" id="textArea" required class="form-control" rows="10" cols="40" style="height:200px">
+</textarea></p>
+<p><label for="textArea">Corp location:</label> <input type="text" name="corp_location" row="3" id="textArea_write_addr" maxlength="200" required class="form-control" style="height:50px" /></p>
+<p><label for="textArea">Corp coordinates:</label> <input type="text" name="corp_coordinates" row="3" id="textArea_get_x_y" maxlength="50" required class="form-control" style="height:50px" />
+<input type="button" onclick="geoCode()" value="Encode" id = "encoding_btn"></p>
+
+
+                        </form>
+                        <button type="submit" class="btn btn-primary btn-lg">Write Reply</button>
+                    </div>
+
+                </div>
+              </form>
+          </div>
+      </div>
+
+
+    </body>
+</html>

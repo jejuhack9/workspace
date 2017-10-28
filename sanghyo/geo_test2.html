@@ -1,0 +1,60 @@
+<소스 코드>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+<style type="text/css">
+   html { height : 100% }
+   body { height : 100%; margin: 3% 0% 0% 1.5%; padding: 0 }
+   #map_canvas { height : 100% }
+</style>
+<script type = "text/javascript"
+   src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyAwrfz2MVZoTgp-8XvRRrdSyba3_gV_4VU">
+</script>
+<script type = "text/javascript">
+
+  console.firebug=true;
+
+  function initialize() {
+     geocoder = new google.maps.Geocoder();
+     var latlng = new google.maps.LatLng(-34.397, 150.644);
+     var mapOptions = {
+       zoom: 8,
+       center: latlng,
+       mapTypeId: google.maps.MapTypeId.ROADMAP
+     }
+     map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+   }
+
+  function geoCode() {
+  var latitudexy = document.getElementById('latitude_x_y');
+	var faddr = document.getElementById('address').value;
+	var geocoder;
+	geocoder = new google.maps.Geocoder();
+	geocoder.geocode( { 'address': faddr}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			var faddr_lat = results[0].geometry.location.lat();	//위도
+			var faddr_lng = results[0].geometry.location.lng();	//경도
+		} else {
+			var faddr_lat = "";
+			var faddr_lng = "";
+		}
+
+		alert('주소 : ' + faddr + '\n\n위도 : ' + faddr_lat + '\n\n경도 : ' + faddr_lng);
+    latitudexy.value = faddr_lat +" "+faddr_lng;
+
+		return;
+	});
+}
+
+</script>
+</head>
+<body onload="initialize()">
+  <div id="map_canvas" style="width: 320px; height: 480px;"></div>
+   <div>
+     <input id="address" type="textbox">
+     <textarea id="latitude_x_y" type="textbox"></textarea>
+     <input type="button" value="Encode" onclick="geoCode()">
+   </div>
+</body>
+</html>
