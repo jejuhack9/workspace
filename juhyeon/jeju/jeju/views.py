@@ -24,7 +24,7 @@ from django.views.generic import CreateView
 from .forms import ReplyForm, CorporationForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-
+import os
 tz=pytz.timezone('Asia/Seoul')
 
 
@@ -83,10 +83,16 @@ def sharefood(request):
             for key, value in request.FILES.items():
                 if (str(value.name).endswith('.jpg') or str(value.name).endswith('.png') or str(value.name).endswith('.JPG') or str(value.name).endswith('.PNG')):
                     newfile = CsFile.objects.create(apikey=apikey,usr=request.user,file=value,regdate=datetime.datetime.now(tz))
-            return HttpResponse('o')
-        else:
-            print(form.errors)
-            return HttpResponse('x')
+                    try:
+                        mtime = value.st_crtime
+                    except OSError:
+                        mtime = 0
+                    last_modified_date = datetime.datetime.fromtimestamp(mtime)
+                    if last_modified_date.hour>datetime.datetime.now(tz).hour-1:
+                        return HttpResponse('o')
+                    else:
+                        print(form.errors)
+                        return HttpResponse('x')
     else:
         if request.user.is_authenticated:
             form = FoodForm()
